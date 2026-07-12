@@ -1,0 +1,2 @@
+# Clean URL for the app (also set in netlify.toml)
+/app    /app.html    200

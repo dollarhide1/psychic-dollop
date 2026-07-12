@@ -483,8 +483,62 @@ footer.foot .heart{color:var(--accent-deep);}
   *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
 }
 </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/config.js"></script>
+  <style>
+  #authGate{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:22px;background:radial-gradient(900px 500px at 80% -5%,#f7f3fc,transparent 60%),linear-gradient(170deg,#fefaf9,#f7e9ee);font-family:'Nunito Sans',system-ui,sans-serif}
+  #authGate[hidden]{display:none}
+  body.gated{overflow:hidden}
+  #authGate .gate-card{background:#fffdfc;border:1px solid #f2e2e7;border-radius:26px;max-width:420px;width:100%;padding:34px 30px;text-align:center;box-shadow:0 30px 70px -30px rgba(120,70,90,.4)}
+  #authGate .gate-orb{width:74px;height:74px;border-radius:50%;margin:0 auto 18px;background:radial-gradient(circle at 38% 32%,#f9e2e6,#f1cdd5 62%,#f9ece3);box-shadow:0 14px 30px -12px rgba(221,170,181,.7),inset 0 3px 8px rgba(255,255,255,.7);animation:gatePulse 7s ease-in-out infinite}
+  @keyframes gatePulse{0%,100%{transform:scale(.95)}50%{transform:scale(1.05)}}
+  @media (prefers-reduced-motion:reduce){#authGate .gate-orb{animation:none}}
+  #authGate .gate-eyebrow{font-size:.7rem;letter-spacing:2.4px;text-transform:uppercase;color:#c98f9c;font-weight:700;margin:0 0 8px}
+  #authGate h2{font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:1.7rem;color:#5f4c54;margin:0 0 10px;line-height:1.15}
+  #authGate .gate-msg{color:#9a848e;font-size:.98rem;margin:0 0 18px;line-height:1.55}
+  #authGate input{width:100%;border:1.5px solid #eccfd6;border-radius:14px;padding:13px 15px;font-size:1rem;font-family:inherit;color:#5f4c54;margin-bottom:12px;background:#fff}
+  #authGate input:focus{outline:none;border-color:#ddaab5}
+  #authGate .gate-btn{width:100%;border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:1rem;color:#fff;padding:14px 20px;border-radius:999px;background:linear-gradient(135deg,#eecad0,#ddaab5);box-shadow:0 14px 30px -12px rgba(221,170,181,.8);margin-bottom:10px}
+  #authGate .gate-btn.ghost{background:transparent;color:#c98f9c;border:1.5px solid #eccfd6;box-shadow:none}
+  #authGate .gate-fine{font-size:.78rem;color:#b9a7ae;margin:10px 0 0;line-height:1.5}
+  #authGate .gate-fine a{color:#c98f9c}
+  </style>
 </head>
 <body>
+
+<div id="authGate" role="dialog" aria-modal="true" aria-label="Sign in to Tender Days">
+  <div class="gate-card">
+    <div class="gate-orb"></div>
+    <div id="gateLoading" class="gate-view">
+      <p class="gate-eyebrow">Tender Days</p>
+      <p class="gate-msg">One soft moment&hellip;</p>
+    </div>
+    <div id="gateSignin" class="gate-view" hidden>
+      <p class="gate-eyebrow">Welcome</p>
+      <h2>A soft place, just for you</h2>
+      <p class="gate-msg">Enter your email and we&rsquo;ll send a secure sign-in link &mdash; no password to remember.</p>
+      <input id="gateEmailInput" type="email" placeholder="you@example.com" autocomplete="email" />
+      <button id="gateSendLink" class="gate-btn">Email me a sign-in link</button>
+      <p class="gate-fine">We store only your email to run your account. Your journal, letters, and moments stay on your device.</p>
+    </div>
+    <div id="gateSent" class="gate-view" hidden>
+      <p class="gate-eyebrow">Check your inbox</p>
+      <h2>Your link is on its way</h2>
+      <p class="gate-msg">We sent a sign-in link to <b id="sentEmail"></b>. Open it on this device to continue.</p>
+      <button class="gate-btn ghost gate-signout">Use a different email</button>
+    </div>
+    <div id="gateSubscribe" class="gate-view" hidden>
+      <p class="gate-eyebrow">Start your free week</p>
+      <h2>7 days free, then $7.99/month</h2>
+      <p class="gate-msg">Full access to every gentle tool. Cancel anytime &mdash; we&rsquo;ll remind you before your trial ends.</p>
+      <button id="gateSubscribeBtn" class="gate-btn">Start my 7-day free trial</button>
+      <button id="gateManage" class="gate-btn ghost" style="display:none">Manage subscription</button>
+      <p class="gate-fine">Signed in as <span id="gateEmail2"></span> &middot; <a href="#" class="gate-signout">sign out</a></p>
+      <p class="gate-fine">By continuing you agree to the <a href="/terms.html" target="_blank">Terms</a> and <a href="/privacy.html" target="_blank">Privacy Policy</a>. After your 7-day trial, $7.99/month until cancelled.</p>
+    </div>
+  </div>
+</div>
+
 
 <header class="top">
   <div class="brand">
@@ -794,8 +848,9 @@ footer.foot .heart{color:var(--accent-deep);}
       <div class="priv-row">
         <span class="priv-ic ok">&check;</span>
         <div>
-          <b>Everything stays on this device by default</b>
-          <p>Your journal, letters, moments, and circle live only in this window — nothing is sent anywhere or collected. Closing the tab clears them, which is why the PDF buttons are how you keep things.</p>
+          <b>Your words stay on this device</b>
+          <p>Your journal, letters, moments, and circle are kept only in this window on your device — they're never uploaded to our servers. Closing the tab clears them, which is why the PDF buttons are how you keep them.</p>
+          <p style="margin-top:8px;">To run your account and subscription, we store just two things on our servers: your <b>email address</b> and whether your <b>subscription is active</b>. Nothing you write is ever included.</p>
         </div>
       </div>
     </div>
@@ -804,7 +859,7 @@ footer.foot .heart{color:var(--accent-deep);}
       <div class="sync-head">
         <div>
           <b>Cloud sync</b><span class="badge-off" id="syncBadge">Off</span>
-          <p class="muted">Optional. Turn this on to save your entries to a private account, so they survive closing the app and sync across your devices.</p>
+          <p class="muted">Optional, and separate from signing in. Turning this on would also upload the things you write to your account so they survive closing the app and sync across devices.</p>
         </div>
       </div>
 
@@ -1628,5 +1683,6 @@ function download(name, text){
   }
 }
 </script>
+  <script src="/auth-gate.js"></script>
 </body>
 </html>
