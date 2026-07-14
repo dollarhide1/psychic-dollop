@@ -1,4 +1,4 @@
-/* Tender Days — sign-in + subscription gate.
+/* Tender Days — sign-in (6-digit email code) + subscription gate.
    Requires the Supabase UMD script and config.js to be loaded first. */
 (function () {
   var cfg = window.TENDER_CONFIG || {};
@@ -8,7 +8,9 @@
   var sb = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
 
   var gate = document.getElementById("authGate");
-  var views = ["gateLoading", "gateSignin", "gateSent", "gateSubscribe"];
+  var views = ["gateLoading", "gateSignin", "gateCode", "gateSubscribe"];
+  var currentEmail = "";
+
   function show(id) {
     views.forEach(function (v) {
       var el = document.getElementById(v);
@@ -30,10 +32,8 @@
     var res = await sb.from("subscriptions").select("status")
       .eq("user_id", sess.user.id).maybeSingle();
     var status = res.data && res.data.status;
-
     if (status === "active" || status === "trialing") { unlock(); return; }
 
-    // Right after returning from Stripe the webhook may lag a few seconds.
     var params = new URLSearchParams(location.search);
     if (params.get("checkout") === "success" && (retries || 0) < 6) {
       show("gateLoading");
@@ -45,19 +45,48 @@
     show("gateSubscribe");
   }
 
-  // Magic-link sign in
-  document.getElementById("gateSendLink").addEventListener("click", async function () {
+  // Step 1: request a 6-digit code by email
+  document.getElementById("gateSendCode").addEventListener("click", async function () {
     var email = document.getElementById("gateEmailInput").value.trim();
     if (!email) return;
     var btn = this; btn.disabled = true; btn.textContent = "Sending…";
     var out = await sb.auth.signInWithOtp({
       email: email,
-      options: { emailRedirectTo: location.origin + "/app.html" }
+      options: { shouldCreateUser: true }
     });
-    btn.disabled = false; btn.textContent = "Email me a sign-in link";
+    btn.disabled = false; btn.textContent = "Email me a code";
     if (out.error) { alert(out.error.message); return; }
-    document.getElementById("sentEmail").textContent = email;
-    show("gateSent");
+    currentEmail = email;
+    document.getElementById("codeEmail").textContent = email;
+    show("gateCode");
+    var ci = document.getElementById("gateCodeInput");
+    if (ci) { ci.value = ""; ci.focus(); }
+  });
+
+  // Step 2: verify the 6-digit code
+  async function verifyCode() {
+    var token = (document.getElementById("gateCodeInput").value || "").trim();
+    if (token.length < 6) return;
+    var btn = document.getElementById("gateVerifyBtn");
+    btn.disabled = true; btn.textContent = "Verifying…";
+    var out = await sb.auth.verifyOtp({ email: currentEmail, token: token, type: "email" });
+    btn.disabled = false; btn.textContent = "Verify code";
+    if (out.error) {
+      var err = document.getElementById("codeError");
+      if (err) err.textContent = "That code didn't work — check it and try again.";
+      return;
+    }
+    checkAccess();
+  }
+  document.getElementById("gateVerifyBtn").addEventListener("click", verifyCode);
+  document.getElementById("gateCodeInput").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") verifyCode();
+  });
+
+  // Resend / change email
+  document.getElementById("gateResend").addEventListener("click", function (e) {
+    e.preventDefault();
+    show("gateSignin");
   });
 
   // Start trial / subscribe
@@ -72,7 +101,7 @@
     location.href = out.data.url;
   });
 
-  // Manage subscription (Stripe portal)
+  // Manage subscription
   var mng = document.getElementById("gateManage");
   if (mng) mng.addEventListener("click", async function () {
     var out = await sb.functions.invoke("create-portal-session");
@@ -88,6 +117,5 @@
     });
   });
 
-  sb.auth.onAuthStateChange(function (_evt, _session) { /* handled on load */ });
   checkAccess();
 })();
