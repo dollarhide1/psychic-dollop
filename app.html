@@ -727,8 +727,8 @@ footer.foot .heart{color:var(--accent-deep);}
       <h3>Your keepsakes</h3>
       <p class="muted" style="margin:0 0 12px;">Every letter to your little one and every moment you save can become a beautiful PDF — one for your letters, one for your moments. Print them and tuck them into a baby book or your little one's memory book, or simply keep them safe. Each one prints on its own.</p>
       <div class="field" style="margin-bottom:14px;">
-        <label class="fld" for="keepName">Your little one's name for the covers <span class="muted" style="font-weight:400">(optional)</span></label>
-        <input type="text" id="keepName" placeholder="e.g. Amara — so each cover reads 'For Amara'" />
+        <label class="fld" for="keepName">Your little one's name &mdash; or names &mdash; for the covers <span class="muted" style="font-weight:400">(optional)</span></label>
+        <input type="text" id="keepName" placeholder="e.g. Carol — so each cover reads 'To my little one, Carol'" />
       </div>
       <div class="toolbar">
         <button class="btn" id="lettersPdf">
@@ -1448,7 +1448,13 @@ renderMoments();
 /* ===================== KEEPSAKE PDF (letters + moments) ===================== */
 function keepCover(sub){
   const name=$("#keepName").value.trim();
-  const title = name ? "For "+esc(name) : "For my little one";
+  let title;
+  if(!name){
+    title = "For my little one";
+  } else {
+    const many = /,|&|\band\b/i.test(name);
+    title = (many ? "To my little ones, " : "To my little one, ") + esc(name);
+  }
   return `<div class="p-cover">
       <div class="p-orb"></div>
       <p class="p-eyebrow">A keepsake of love</p>
