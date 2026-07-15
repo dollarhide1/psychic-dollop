@@ -29,6 +29,10 @@
     var sess = (await sb.auth.getSession()).data.session;
     if (!sess) { show("gateSignin"); return; }
 
+    // populate the in-app "My account" panel
+    var ae = document.getElementById("acctEmail");
+    if (ae) ae.textContent = sess.user.email;
+
     var res = await sb.from("subscriptions").select("status")
       .eq("user_id", sess.user.id).maybeSingle();
     var status = res.data && res.data.status;
@@ -101,12 +105,20 @@
     location.href = out.data.url;
   });
 
-  // Manage subscription
+  // Manage subscription (Stripe portal) — gate screen button and in-app "My account" button
+  function openPortal(btn) {
+    return async function () {
+      if (btn) { btn.disabled = true; }
+      var out = await sb.functions.invoke("create-portal-session");
+      if (btn) { btn.disabled = false; }
+      if (out.data && out.data.url) { location.href = out.data.url; }
+      else { alert((out.error && out.error.message) || "Couldn't open the billing page. Please try again."); }
+    };
+  }
   var mng = document.getElementById("gateManage");
-  if (mng) mng.addEventListener("click", async function () {
-    var out = await sb.functions.invoke("create-portal-session");
-    if (out.data && out.data.url) location.href = out.data.url;
-  });
+  if (mng) mng.addEventListener("click", openPortal(mng));
+  var mng2 = document.getElementById("manageSub");
+  if (mng2) mng2.addEventListener("click", openPortal(mng2));
 
   // Sign out
   document.querySelectorAll(".gate-signout").forEach(function (b) {

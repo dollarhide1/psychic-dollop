@@ -859,30 +859,13 @@ footer.foot .heart{color:var(--accent-deep);}
     </div>
 
     <div class="priv-card">
-      <div class="sync-head">
-        <div>
-          <b>Cloud sync</b><span class="badge-off" id="syncBadge">Off</span>
-          <p class="muted">Optional, and separate from signing in. Turning this on would also upload the things you write to your account so they survive closing the app and sync across devices.</p>
-        </div>
+      <b>My account</b>
+      <p class="muted small" style="margin:4px 0 10px;">Signed in as <b id="acctEmail">—</b></p>
+      <div class="toolbar">
+        <button class="btn small" id="manageSub">Manage or cancel subscription</button>
+        <button class="btn ghost small gate-signout">Sign out</button>
       </div>
-
-      <div id="syncConsent">
-        <p class="muted small" style="margin:14px 0 6px;">Before turning this on, please read and agree:</p>
-        <label class="consent"><input type="checkbox" class="cbox" id="c1"> <span>I understand my journal, letters, moments, and circle will be <b>stored on a secure server</b>, not only on my device.</span></label>
-        <label class="consent"><input type="checkbox" class="cbox" id="c2"> <span>I consent to my entries being collected and stored for the purpose of syncing them to my account.</span></label>
-        <label class="consent"><input type="checkbox" class="cbox" id="c3"> <span>I understand I can export or permanently delete my data, and withdraw this consent, at any time.</span></label>
-        <div class="field" style="margin-top:12px;">
-          <label class="fld" for="syncEmail">Email for your account</label>
-          <input type="email" id="syncEmail" placeholder="you@example.com" />
-        </div>
-        <button class="btn" id="enableSync" disabled>Create account &amp; turn on sync</button>
-        <p class="tiny" style="margin-top:8px;">Sync uses an encrypted connection. By continuing you agree to the Privacy Policy and Terms.</p>
-      </div>
-
-      <div id="syncOn" hidden>
-        <p class="muted" style="margin:14px 0 12px;">Sync is on for <b id="syncEmailShow"></b>. Your entries save to your account automatically.</p>
-        <button class="btn ghost" id="disableSync">Turn off &amp; withdraw consent</button>
-      </div>
+      <p class="tiny" style="margin-top:8px;">Manage subscription opens a secure billing page where you can update your card or cancel anytime. If you cancel, you keep access until the end of your current period.</p>
     </div>
 
     <div class="priv-card">
@@ -1610,43 +1593,6 @@ $("#privacyBtn").addEventListener("click", openPriv);
 $("#privClose").addEventListener("click", closePriv);
 privModal.addEventListener("click", e=>{ if(e.target===privModal) closePriv(); });
 document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !privModal.hidden) closePriv(); });
-
-// gate the enable button on all consents + a valid-looking email
-function checkConsent(){
-  const all = $$(".cbox").every(c=>c.checked);
-  const email = $("#syncEmail").value.trim();
-  const ok = all && /\S+@\S+\.\S+/.test(email);
-  $("#enableSync").disabled = !ok;
-}
-$$(".cbox").forEach(c=>c.addEventListener("change", checkConsent));
-$("#syncEmail").addEventListener("input", checkConsent);
-
-// NOTE FOR DEVELOPERS: this is the consent + opt-in model only.
-// Wire your backend (e.g. Supabase) inside these two stubs to make sync live.
-function syncToCloud(){ /* TODO: upload {journal, notes, moments, worksheets, circle} for the signed-in account */ }
-function loadFromCloud(){ /* TODO: fetch this account's saved entries and re-render */ }
-
-$("#enableSync").addEventListener("click",()=>{
-  const email=$("#syncEmail").value.trim();
-  syncEnabled=true;
-  $("#syncEmailShow").textContent=email;
-  $("#syncConsent").hidden=true;
-  $("#syncOn").hidden=false;
-  $("#syncBadge").textContent="On";
-  $("#syncBadge").className="badge-on";
-  syncToCloud();
-  toast("Cloud sync turned on ♥");
-});
-$("#disableSync").addEventListener("click",()=>{
-  syncEnabled=false;
-  $$(".cbox").forEach(c=>c.checked=false);
-  checkConsent();
-  $("#syncConsent").hidden=false;
-  $("#syncOn").hidden=true;
-  $("#syncBadge").textContent="Off";
-  $("#syncBadge").className="badge-off";
-  toast("Sync off — your data stays only on this device");
-});
 
 $("#exportData").addEventListener("click",()=>{
   const data={
