@@ -563,10 +563,6 @@ footer.foot .heart{color:var(--accent-deep);}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="m9 12 2 2 4-4"/></svg>
       Privacy
     </button>
-    <button class="help-now" id="helpNow">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
-      Need support
-    </button>
   </div>
 </header>
 
@@ -677,7 +673,7 @@ footer.foot .heart{color:var(--accent-deep);}
         <button class="btn" id="saveJournal">Save entry</button>
         <button class="btn ghost" id="journalPdf">Create journal PDF</button>
       </div>
-      <p class="tiny" style="margin-top:12px;">Entries live only in this window for now. Tap <b>Create journal PDF</b> to save them as a pretty keepsake (choose <b>Save as PDF</b> in the print window) before you close the page.</p>
+      <p class="tiny" style="margin-top:12px;">Your entries are saved on this device, so they’ll be here when you come back. They don’t sync between your phone and computer — tap <b>Create journal PDF</b> to keep or print a copy you can carry anywhere.</p>
       <hr class="divider" />
       <h3>Your entries</h3>
       <div id="journalList"></div>
@@ -740,7 +736,7 @@ footer.foot .heart{color:var(--accent-deep);}
           Moments PDF
         </button>
       </div>
-      <p class="tiny" style="margin-top:10px;">Each opens your browser's print window — choose <b>Save as PDF</b> as the destination. Letters and moments live only in this window until you save the PDFs.</p>
+      <p class="tiny" style="margin-top:10px;">Each opens your browser’s print window — choose <b>Save as PDF</b> as the destination. Your letters and moments are saved on this device (they don’t sync between devices), so make a PDF to keep or move a copy.</p>
     </div>
   </section>
 
@@ -852,7 +848,7 @@ footer.foot .heart{color:var(--accent-deep);}
         <span class="priv-ic ok">&check;</span>
         <div>
           <b>Your words stay on this device</b>
-          <p>Your journal, letters, moments, and circle are kept only in this window on your device — they're never uploaded to our servers. Closing the tab clears them, which is why the PDF buttons are how you keep them.</p>
+          <p>Your journal, letters, moments, and circle are saved on this device only — they’re never uploaded to our servers, and they’ll be here when you come back on this device and browser. Because they stay on your device, they don’t sync between your phone and computer — use the PDF buttons to keep or move a copy.</p>
           <p style="margin-top:8px;">To run your account and subscription, we store just two things on our servers: your <b>email address</b> and whether your <b>subscription is active</b>. Nothing you write is ever included.</p>
         </div>
       </div>
@@ -1072,7 +1068,6 @@ function goTab(name){
   window.scrollTo({top:0, behavior:'smooth'});
 }
 $$(".tab").forEach(t=>t.addEventListener("click",()=>goTab(t.dataset.tab)));
-$("#helpNow").addEventListener("click",()=>{ goTab("support"); setTimeout(()=>$("#crisisCard").scrollIntoView({behavior:'smooth'}),250); });
 
 /* ===================== HOME ===================== */
 (function initHome(){
@@ -1284,6 +1279,23 @@ function play(id){
 // pause sound when leaving Calm tab is optional; keep playing for background calm.
 
 /* ===================== JOURNAL ===================== */
+/* ===================== ON-DEVICE SAVE (localStorage) ===================== */
+var _tdLoaded=false;
+function saveAll(){
+  if(!_tdLoaded) return;
+  try{ localStorage.setItem("tenderDays.v1", JSON.stringify({journal:journal,worksheets:worksheets,notes:notes,moments:moments,circle:circle})); }catch(e){}
+}
+function loadAll(){
+  try{
+    var raw=localStorage.getItem("tenderDays.v1"); if(!raw) return;
+    var d=JSON.parse(raw);
+    if(Array.isArray(d.journal)) journal=d.journal;
+    if(Array.isArray(d.worksheets)) worksheets=d.worksheets;
+    if(Array.isArray(d.notes)) notes=d.notes;
+    if(Array.isArray(d.moments)) moments=d.moments;
+    if(Array.isArray(d.circle)) circle=d.circle;
+  }catch(e){}
+}
 let journal=[];
 function renderJournal(){
   const list=$("#journalList");
@@ -1295,7 +1307,7 @@ function renderJournal(){
     list.appendChild(div);
   });
   list.querySelectorAll(".del").forEach(b=>b.addEventListener("click",()=>{
-    journal=journal.filter(x=>x.id!=b.dataset.id); renderJournal(); toast("Entry removed");
+    journal=journal.filter(x=>x.id!=b.dataset.id); renderJournal(); saveAll(); toast("Entry removed");
   }));
 }
 function setPrompt(){ $("#journalPrompt").textContent = pick(PROMPTS); }
@@ -1304,7 +1316,7 @@ $("#saveJournal").addEventListener("click",()=>{
   const t=$("#journalText").value.trim();
   if(!t){ toast("Write a little something first"); return; }
   journal.push({id:Date.now(), time:nowStamp(), text:t, prompt:$("#journalPrompt").textContent});
-  $("#journalText").value=""; renderJournal(); toast("Saved to your pages ♥");
+  $("#journalText").value=""; renderJournal(); saveAll(); toast("Saved to your pages ♥");
 });
 $("#journalPdf").addEventListener("click",()=>{
   if(!journal.length){ toast("Write an entry first ♥"); return; }
@@ -1365,7 +1377,7 @@ function renderCbt(){
     list.appendChild(div);
   });
   list.querySelectorAll(".del").forEach(b=>b.addEventListener("click",()=>{
-    worksheets=worksheets.filter(x=>x.id!=b.dataset.id); renderCbt(); toast("Worksheet removed");
+    worksheets=worksheets.filter(x=>x.id!=b.dataset.id); renderCbt(); saveAll(); toast("Worksheet removed");
   }));
 }
 $("#saveCbt").addEventListener("click",()=>{
@@ -1374,7 +1386,7 @@ $("#saveCbt").addEventListener("click",()=>{
   ws.fields.forEach(f=>{ const v=$("#ws_"+f.id).value.trim(); vals[f.id]=v; if(v) any=true; });
   if(!any){ toast("Fill in a little first"); return; }
   worksheets.push({id:Date.now(), time:nowStamp(), type:ws.id, name:ws.name, vals});
-  renderCbt(); toast("Worksheet saved ♥");
+  renderCbt(); saveAll(); toast("Worksheet saved ♥");
   ws.fields.forEach(f=>$("#ws_"+f.id).value="");
 });
 $("#clearCbt").addEventListener("click",()=>{
@@ -1406,7 +1418,7 @@ function renderNotes(){
     list.appendChild(div);
   });
   list.querySelectorAll(".del").forEach(b=>b.addEventListener("click",()=>{
-    notes=notes.filter(x=>x.id!=b.dataset.id); renderNotes(); toast("Letter removed");
+    notes=notes.filter(x=>x.id!=b.dataset.id); renderNotes(); saveAll(); toast("Letter removed");
   }));
 }
 function setNotePrompt(){ $("#notePrompt").textContent=pick(NOTE_PROMPTS); }
@@ -1415,7 +1427,7 @@ $("#saveNote").addEventListener("click",()=>{
   const t=$("#noteText").value.trim();
   if(!t){ toast("Write a little something first"); return; }
   notes.push({id:Date.now(), time:nowStamp(), title:$("#noteTitle").value.trim(), text:t});
-  $("#noteText").value=""; $("#noteTitle").value=""; renderNotes(); toast("Saved with love ♥");
+  $("#noteText").value=""; $("#noteTitle").value=""; renderNotes(); saveAll(); toast("Saved with love ♥");
 });
 setNotePrompt(); renderNotes();
 
@@ -1432,7 +1444,7 @@ function renderMoments(){
     list.appendChild(div);
   });
   list.querySelectorAll(".del").forEach(b=>b.addEventListener("click",()=>{
-    moments=moments.filter(x=>x.id!=b.dataset.id); renderMoments(); toast("Moment removed");
+    moments=moments.filter(x=>x.id!=b.dataset.id); renderMoments(); saveAll(); toast("Moment removed");
   }));
 }
 function clearMomentFields(){ ["m_when","m_what","m_why"].forEach(id=>$("#"+id).value=""); }
@@ -1440,7 +1452,7 @@ $("#saveMoment").addEventListener("click",()=>{
   const what=$("#m_what").value.trim();
   if(!what){ toast("Add what happened first"); return; }
   moments.push({id:Date.now(), time:nowStamp(), when:$("#m_when").value.trim(), what, why:$("#m_why").value.trim()});
-  clearMomentFields(); renderMoments(); toast("Banked with love ♥");
+  clearMomentFields(); renderMoments(); saveAll(); toast("Banked with love ♥");
 });
 $("#clearMoment").addEventListener("click",()=>{ clearMomentFields(); toast("Cleared"); });
 renderMoments();
@@ -1576,7 +1588,7 @@ function renderCircle(){
     list.appendChild(div);
   });
   list.querySelectorAll(".del").forEach(b=>b.addEventListener("click",()=>{
-    circle=circle.filter(x=>x.id!=b.dataset.id); renderCircle(); renderCircleMap();
+    circle=circle.filter(x=>x.id!=b.dataset.id); renderCircle(); renderCircleMap(); saveAll();
   }));
   renderCircleMap();
 }
@@ -1585,7 +1597,7 @@ $("#addCircle").addEventListener("click",()=>{
   if(!n){ toast("Add a name first"); return; }
   circle.push({id:Date.now(), name:n, phone:p, role:r});
   $("#circleName").value=""; $("#circlePhone").value="";
-  renderCircle(); toast("Added to your circle ♥");
+  renderCircle(); saveAll(); toast("Added to your circle ♥");
 });
 $("#centerName").addEventListener("input", renderCircleMap);
 renderCircle();
@@ -1615,7 +1627,7 @@ $("#deleteData").addEventListener("click",()=>{
   if(empty){ toast("There's nothing stored to delete"); return; }
   if(!confirm("Permanently delete all your journal entries, letters, moments, worksheets, and circle from this device? This can't be undone.")) return;
   journal.length=0; notes.length=0; moments.length=0; worksheets.length=0; circle.length=0;
-  renderJournal(); renderNotes(); renderMoments(); renderCbt(); renderCircle();
+  renderJournal(); renderNotes(); renderMoments(); renderCbt(); renderCircle(); saveAll();
   toast("All your data has been deleted");
 });
 
@@ -1637,6 +1649,12 @@ function download(name, text){
     else toast("Couldn't download — try copying from the page");
   }
 }
+
+/* ===================== LOAD SAVED WORK (this device) ===================== */
+loadAll(); _tdLoaded=true;
+renderJournal(); renderCbt(); renderNotes(); renderMoments(); renderCircle();
+if(typeof renderCircleMap==="function"){ try{ renderCircleMap(); }catch(e){} }
+saveAll();
 </script>
   <script src="/auth-gate.js"></script>
 </body>
