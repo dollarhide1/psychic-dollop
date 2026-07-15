@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="blush">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tender Days — a soft place for new moms</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#fdf7f5" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet" />
+<style>
+/* ---------- THEMES ---------- */
+:root{
+  --radius:28px; --radius-sm:18px; --radius-xs:12px; --pill:999px;
+  --font-display:'Fraunces', Georgia, serif;
+  --font-body:'Nunito Sans', system-ui, -apple-system, sans-serif;
+  --shadow-soft: 0 12px 40px -18px rgba(70,50,60,.35);
+  --shadow-lift: 0 20px 60px -22px rgba(70,50,60,.45);
+  --maxw: 980px;
+}
+[data-theme="blush"]{
+  --bg1:#fefaf9; --bg2:#fcf5f6; --bg3:#fdf8f4;
+  --surface:#fffefe; --surface-2:#fdf9fa; --line:#f7eff1;
+  --ink:#5f4c54; --ink-soft:#9a848e; --ink-faint:#cdbec4;
+  --accent:#eecad0; --accent-deep:#ddaab5; --accent-2:#f8e4da;
+  --ring:rgba(221,170,181,.32);
+  --orb-a:#f9e2e6; --orb-b:#f1cdd5; --orb-c:#f9ece3;
+}
+[data-theme="lavender"]{
+  --bg1:#faf8fd; --bg2:#f4f0fb; --bg3:#f7f3fc;
+  --surface:#fefdff; --surface-2:#f7f3fc; --line:#efe9f6;
+  --ink:#524a66; --ink-soft:#8f88a8; --ink-faint:#c8c1d8;
+  --accent:#d0c3e9; --accent-deep:#b7a6db; --accent-2:#e6dcf4;
+  --ring:rgba(183,166,219,.3);
+  --orb-a:#e6ddf6; --orb-b:#d0c2ee; --orb-c:#efe6f8;
+}
+[data-theme="sage"]{
+  --bg1:#f7fbf7; --bg2:#eff6f0; --bg3:#f4f9f2;
+  --surface:#fdfefc; --surface-2:#f2f8f3; --line:#e6efe6;
+  --ink:#47564d; --ink-soft:#7f9184; --ink-faint:#bccabf;
+  --accent:#c4dccb; --accent-deep:#a6cbb0; --accent-2:#e0edd9;
+  --ring:rgba(166,203,176,.3);
+  --orb-a:#deefe1; --orb-b:#bedcc5; --orb-c:#eaf4e2;
+}
+[data-theme="sky"]{
+  --bg1:#f7fbfd; --bg2:#eff6fb; --bg3:#f4f9fd;
+  --surface:#fdfeff; --surface-2:#f1f7fb; --line:#e4eef5;
+  --ink:#48525f; --ink-soft:#7e8d9e; --ink-faint:#bccad6;
+  --accent:#c2d7ee; --accent-deep:#a4c2e3; --accent-2:#d9e8f4;
+  --ring:rgba(164,194,227,.3);
+  --orb-a:#ddeaf7; --orb-b:#bdd6ef; --orb-c:#e6f0f8;
+}
+[data-theme="clay"]{
+  --bg1:#fef8f5; --bg2:#fcf2ec; --bg3:#fdf6f1;
+  --surface:#fffdfb; --surface-2:#fdf4f0; --line:#f8ebe4;
+  --ink:#5e4d48; --ink-soft:#9a857f; --ink-faint:#d0c1bb;
+  --accent:#f4ccc4; --accent-deep:#e9b0a9; --accent-2:#fae4da;
+  --ring:rgba(233,176,169,.32);
+  --orb-a:#fadfd8; --orb-b:#f5c6bf; --orb-c:#fbe9dd;
+}
+
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0; min-height:100vh; color:var(--ink);
+  font-family:var(--font-body); font-weight:400; line-height:1.6;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, var(--bg3), transparent 60%),
+    radial-gradient(1000px 700px at -10% 10%, var(--bg2), transparent 55%),
+    linear-gradient(170deg, var(--bg1), var(--bg2));
+  background-attachment:fixed;
+  transition:background .8s ease, color .5s ease;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent-deep);}
+:focus-visible{outline:3px solid var(--ring); outline-offset:3px; border-radius:8px;}
+
+/* ---------- SHELL ---------- */
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px 120px;}
+header.top{
+  max-width:var(--maxw); margin:0 auto; padding:28px 20px 10px;
+  display:flex; flex-wrap:wrap; align-items:center; gap:16px;
+}
+.brand{display:flex; align-items:center; gap:13px; margin-right:auto;}
+.brand .mark{
+  width:46px; height:46px; border-radius:50%; flex:none; position:relative;
+  background:radial-gradient(circle at 35% 30%, var(--orb-a), var(--orb-b) 70%);
+  box-shadow:0 8px 22px -8px var(--ring), inset 0 2px 8px rgba(255,255,255,.6);
+}
+.brand .mark::after{
+  content:""; position:absolute; inset:0; border-radius:50%;
+  background:radial-gradient(circle at 65% 75%, var(--orb-c), transparent 55%); opacity:.8;
+}
+.brand h1{
+  font-family:var(--font-display); font-weight:400; font-size:1.55rem;
+  margin:0; letter-spacing:.2px; line-height:1;
+}
+.brand p{margin:3px 0 0; font-size:.78rem; color:var(--ink-soft); letter-spacing:.3px;}
+
+.tools{display:flex; align-items:center; gap:14px;}
+.palette{display:flex; gap:8px; align-items:center;}
+.palette .swatch{
+  width:24px; height:24px; border-radius:50%; cursor:pointer; border:2px solid #fff;
+  box-shadow:0 3px 8px -3px rgba(70,50,60,.5); transition:transform .2s ease;
+  padding:0;
+}
+.palette .swatch:hover{transform:scale(1.12);}
+.palette .swatch[aria-pressed="true"]{outline:2.5px solid var(--ink-soft); outline-offset:2px;}
+.sw-blush{background:linear-gradient(135deg,#f9e2e6,#eecad0);}
+.sw-lavender{background:linear-gradient(135deg,#e6ddf6,#d0c3e9);}
+.sw-sage{background:linear-gradient(135deg,#deefe1,#c4dccb);}
+.sw-sky{background:linear-gradient(135deg,#ddeaf7,#c2d7ee);}
+.sw-clay{background:linear-gradient(135deg,#fadfd8,#f4ccc4);}
+
+.help-now{
+  font-family:var(--font-body); font-weight:700; font-size:.78rem;
+  letter-spacing:.4px; text-transform:uppercase; cursor:pointer;
+  border:1.5px solid var(--accent); color:var(--accent-deep); background:var(--surface);
+  padding:9px 15px; border-radius:var(--pill); white-space:nowrap;
+  display:inline-flex; align-items:center; gap:7px; transition:all .2s ease;
+}
+.help-now:hover{background:var(--accent); color:#fff; border-color:var(--accent);}
+.help-now svg{width:14px; height:14px;}
+
+/* ---------- TABS ---------- */
+.tabbar-wrap{position:sticky; top:0; z-index:40; padding-top:8px;
+  background:linear-gradient(to bottom, var(--bg1) 55%, transparent);}
+.tabbar{
+  max-width:var(--maxw); margin:0 auto; padding:8px 14px 10px;
+  display:flex; gap:8px; overflow-x:auto; scrollbar-width:none;
+  -webkit-overflow-scrolling:touch; justify-content:flex-start;
+}
+.tabbar::-webkit-scrollbar{display:none;}
+.tab{
+  font-family:var(--font-body); font-weight:600; font-size:.86rem;
+  border:none; cursor:pointer; white-space:nowrap; flex:none;
+  display:inline-flex; align-items:center; gap:8px;
+  padding:11px 17px; border-radius:var(--pill); color:var(--ink-soft);
+  background:var(--surface); box-shadow:0 4px 14px -10px rgba(70,50,60,.5);
+  transition:all .25s ease;
+}
+.tab svg{width:17px; height:17px; opacity:.85;}
+.tab:hover{color:var(--ink); transform:translateY(-1px);}
+.tab[aria-selected="true"]{
+  background:linear-gradient(135deg,var(--accent),var(--accent-deep)); color:#fff;
+  box-shadow:0 10px 24px -10px var(--ring);
+}
+.tab[aria-selected="true"] svg{opacity:1;}
+@media(min-width:880px){ .tabbar{justify-content:center; flex-wrap:wrap; overflow:visible;} }
+
+/* ---------- PANELS ---------- */
+.panel{display:none; animation:rise .5s ease both;}
+.panel.active{display:block;}
+@keyframes rise{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;}}
+
+.card{
+  background:var(--surface); border-radius:var(--radius); padding:26px;
+  box-shadow:var(--shadow-soft); border:1px solid var(--line);
+}
+.card + .card{margin-top:18px;}
+.grid{display:grid; gap:18px;}
+@media(min-width:720px){ .grid.two{grid-template-columns:1fr 1fr;} }
+
+.eyebrow{
+  font-size:.72rem; letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--accent-deep); font-weight:700; margin:0 0 10px;
+}
+h2.title{font-family:var(--font-display); font-weight:400; font-size:1.9rem; margin:0 0 6px; line-height:1.15;}
+h3{font-family:var(--font-display); font-weight:500; font-size:1.25rem; margin:0 0 8px;}
+.lead{color:var(--ink-soft); margin:0 0 4px; font-size:1.02rem;}
+.muted{color:var(--ink-soft);}
+.tiny{font-size:.82rem; color:var(--ink-soft);}
+
+/* buttons */
+.btn{
+  font-family:var(--font-body); font-weight:700; font-size:.92rem; cursor:pointer;
+  border:none; padding:13px 22px; border-radius:var(--pill); color:#fff;
+  background:linear-gradient(135deg,var(--accent),var(--accent-deep));
+  box-shadow:0 12px 26px -12px var(--ring); transition:transform .2s ease, box-shadow .2s ease;
+  display:inline-flex; align-items:center; gap:9px;
+}
+.btn:hover{transform:translateY(-2px); box-shadow:0 16px 32px -12px var(--ring);}
+.btn.ghost{background:var(--surface-2); color:var(--ink); box-shadow:none; border:1px solid var(--line);}
+.btn.ghost:hover{background:var(--surface);}
+.btn.small{padding:9px 16px; font-size:.84rem;}
+.btn svg{width:16px;height:16px;}
+
+input[type=text], input[type=tel], textarea, select{
+  width:100%; font-family:var(--font-body); font-size:1rem; color:var(--ink);
+  background:var(--surface-2); border:1px solid var(--line); border-radius:var(--radius-sm);
+  padding:13px 15px; resize:vertical; transition:border-color .2s ease, background .2s ease;
+}
+input:focus, textarea:focus, select:focus{outline:none; border-color:var(--accent); background:var(--surface);}
+label.fld{display:block; font-weight:600; font-size:.86rem; margin:0 0 6px; color:var(--ink);}
+.fld-hint{font-size:.78rem; color:var(--ink-faint); margin:-2px 0 8px; font-weight:400;}
+.field{margin-bottom:16px;}
+
+/* ---------- HOME ---------- */
+.hero{
+  position:relative; overflow:hidden; text-align:center;
+  padding:40px 26px 34px;
+}
+.hero .ambient{
+  position:absolute; width:340px; height:340px; left:50%; top:-90px; transform:translateX(-50%);
+  border-radius:50%; filter:blur(6px); opacity:.55; pointer-events:none;
+  background:radial-gradient(circle at 40% 35%, var(--orb-a), var(--orb-b) 60%, transparent 72%);
+  animation:floaty 9s ease-in-out infinite;
+}
+@keyframes floaty{0%,100%{transform:translateX(-50%) scale(1);}50%{transform:translateX(-50%) scale(1.06);}}
+.hero-inner{position:relative;}
+.greeting{font-family:var(--font-display); font-weight:400; font-size:2.15rem; margin:6px 0 4px; line-height:1.12;}
+.greeting em{font-style:italic; color:var(--accent-deep);}
+.affirm-home{font-family:var(--font-display); font-style:italic; font-weight:400;
+  font-size:1.3rem; color:var(--ink); max-width:30ch; margin:14px auto 22px; line-height:1.4;}
+
+.mood-q{font-weight:700; margin:6px 0 14px;}
+.moods{display:flex; flex-wrap:wrap; gap:9px; justify-content:center;}
+.mood{
+  font-family:var(--font-body); font-weight:600; font-size:.88rem; cursor:pointer;
+  border:1px solid var(--line); background:var(--surface-2); color:var(--ink);
+  padding:10px 16px; border-radius:var(--pill); transition:all .2s ease;
+}
+.mood:hover{transform:translateY(-2px);}
+.mood[aria-pressed="true"]{background:linear-gradient(135deg,var(--accent),var(--accent-deep)); color:#fff; border-color:transparent;}
+.mood-reply{
+  margin-top:20px; background:var(--surface-2); border:1px solid var(--line);
+  border-radius:var(--radius-sm); padding:18px 20px; text-align:left; display:none;
+}
+.mood-reply.show{display:block; animation:rise .4s ease both;}
+.mood-reply p{margin:0 0 12px;}
+
+.well-grid{display:grid; gap:14px; grid-template-columns:1fr;}
+@media(min-width:640px){ .well-grid{grid-template-columns:1fr 1fr;} }
+@media(min-width:860px){ .well-grid{grid-template-columns:1fr 1fr 1fr;} }
+.well{
+  background:var(--surface-2); border:1px solid var(--line); border-radius:var(--radius-sm);
+  padding:18px; display:flex; gap:13px; align-items:flex-start;
+}
+.well .ic{
+  width:38px;height:38px;border-radius:12px;flex:none; display:grid; place-items:center;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#fff;
+}
+.well .ic svg{width:19px;height:19px;}
+.well b{display:block; font-weight:700; margin-bottom:3px; font-size:.96rem;}
+.well span{font-size:.86rem; color:var(--ink-soft);}
+
+/* ---------- BREATHE ---------- */
+.breathe-stage{display:flex; flex-direction:column; align-items:center; padding:14px 0 4px;}
+.orb-holder{position:relative; width:min(74vw,300px); height:min(74vw,300px); display:grid; place-items:center; margin:6px 0 8px;}
+.orb-ring{position:absolute; inset:0; border-radius:50%; border:1px solid var(--line); opacity:.6;}
+.orb{
+  width:46%; height:46%; border-radius:50%; position:relative;
+  background:radial-gradient(circle at 38% 32%, var(--orb-a), var(--orb-b) 62%, var(--orb-c) 100%);
+  box-shadow:0 24px 60px -18px var(--ring), inset 0 4px 14px rgba(255,255,255,.55);
+  transition:transform 4s cubic-bezier(.45,0,.55,1);
+  will-change:transform;
+}
+.orb.inhale{transform:scale(2.0);}
+.orb.exhale{transform:scale(1);}
+.orb.hold{}
+.phase{font-family:var(--font-display); font-weight:400; font-size:1.6rem; margin:10px 0 2px; min-height:1.6em;}
+.count-ring{font-size:2rem; font-family:var(--font-display); color:var(--accent-deep); min-height:1.2em;}
+.cycles{font-size:.85rem; color:var(--ink-soft); margin-top:2px;}
+.pattern-row{display:flex; gap:9px; flex-wrap:wrap; justify-content:center; margin:8px 0 18px;}
+.pat{
+  font-family:var(--font-body); font-weight:600; font-size:.84rem; cursor:pointer;
+  border:1px solid var(--line); background:var(--surface-2); color:var(--ink);
+  padding:9px 15px; border-radius:var(--pill); transition:all .2s ease;
+}
+.pat[aria-pressed="true"]{background:var(--accent); color:#fff; border-color:transparent;}
+.pat small{display:block; font-weight:400; opacity:.85; font-size:.72rem;}
+
+/* ---------- CALM / SOUND ---------- */
+.scapes{display:grid; gap:12px; grid-template-columns:1fr 1fr;}
+@media(min-width:620px){ .scapes{grid-template-columns:repeat(3,1fr);} }
+.scape{
+  cursor:pointer; border:1px solid var(--line); background:var(--surface-2);
+  border-radius:var(--radius-sm); padding:18px 14px; text-align:center; transition:all .2s ease;
+  font-family:var(--font-body);
+}
+.scape:hover{transform:translateY(-2px);}
+.scape[aria-pressed="true"]{background:linear-gradient(135deg,var(--accent),var(--accent-deep)); color:#fff; border-color:transparent;}
+.scape .em{font-size:1.7rem; display:block; margin-bottom:6px;}
+.scape b{font-weight:700; font-size:.95rem; display:block;}
+.scape span{font-size:.76rem; opacity:.8;}
+.vol-row{display:flex; align-items:center; gap:14px; margin-top:20px;}
+input[type=range]{accent-color:var(--accent-deep); width:100%;}
+.now-playing{margin-top:14px; font-size:.9rem; color:var(--ink-soft); min-height:1.4em;}
+
+/* ---------- JOURNAL & CBT lists ---------- */
+.entry{
+  background:var(--surface-2); border:1px solid var(--line); border-radius:var(--radius-sm);
+  padding:16px 18px; margin-top:12px;
+}
+.entry .meta{font-size:.74rem; color:var(--ink-faint); letter-spacing:.5px; margin-bottom:6px; display:flex; justify-content:space-between; gap:10px;}
+.entry p{margin:0; white-space:pre-wrap;}
+.entry .del{background:none;border:none;color:var(--ink-faint);cursor:pointer;font-size:.74rem;font-weight:700;}
+.entry .del:hover{color:var(--accent-deep);}
+.empty{color:var(--ink-faint); font-style:italic; padding:10px 0; font-family:var(--font-display);}
+.cbt-recap b{color:var(--accent-deep);}
+.prompt-bubble{
+  background:linear-gradient(135deg,var(--surface-2),var(--bg3));
+  border:1px dashed var(--accent); border-radius:var(--radius-sm); padding:14px 18px;
+  font-family:var(--font-display); font-style:italic; font-size:1.05rem; margin-bottom:14px;
+}
+.toolbar{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
+
+/* ---------- QUOTES ---------- */
+.quote-card{text-align:center; padding:42px 28px; position:relative; overflow:hidden;}
+.quote-card .glow{position:absolute; width:260px;height:260px;border-radius:50%; right:-80px; top:-90px;
+  background:radial-gradient(circle,var(--orb-a),transparent 70%); opacity:.5;}
+.qmark{font-family:var(--font-display); font-size:3.4rem; color:var(--accent); line-height:.4; display:block; height:.5em;}
+.quote-text{font-family:var(--font-display); font-style:italic; font-weight:400; font-size:1.55rem; line-height:1.4; margin:10px auto 22px; max-width:24ch; position:relative;}
+.reminders{display:grid; gap:12px; grid-template-columns:1fr;}
+@media(min-width:640px){ .reminders{grid-template-columns:1fr 1fr;} }
+.reminder{display:flex; gap:12px; align-items:center; background:var(--surface-2); border:1px solid var(--line); border-radius:var(--radius-sm); padding:14px 16px;}
+.reminder .dot{width:10px;height:10px;border-radius:50%;flex:none;background:linear-gradient(135deg,var(--accent),var(--accent-deep));}
+.reminder span{font-size:.92rem;}
+
+/* ---------- SUPPORT ---------- */
+.hot{
+  display:flex; gap:15px; align-items:flex-start; padding:18px 20px; border-radius:var(--radius-sm);
+  border:1px solid var(--line); background:var(--surface-2); margin-top:12px;
+}
+.hot.urgent{border-color:var(--accent); background:linear-gradient(135deg,var(--surface),var(--bg3));}
+.hot .ic{width:42px;height:42px;border-radius:12px;flex:none;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--accent),var(--accent-deep)); color:#fff;}
+.hot .ic svg{width:21px;height:21px;}
+.hot b{display:block; font-size:1rem; margin-bottom:2px;}
+.hot .num{font-family:var(--font-display); font-size:1.15rem; color:var(--accent-deep); font-weight:500;}
+.hot p{margin:4px 0 0; font-size:.85rem; color:var(--ink-soft);}
+.hot .acts{margin-top:10px; display:flex; gap:9px; flex-wrap:wrap;}
+.callbtn{font-family:var(--font-body); font-weight:700; font-size:.82rem; text-decoration:none;
+  padding:8px 15px; border-radius:var(--pill); color:#fff;
+  background:linear-gradient(135deg,var(--accent),var(--accent-deep)); display:inline-flex; gap:6px; align-items:center;}
+.callbtn.alt{background:var(--surface); color:var(--accent-deep); border:1.5px solid var(--accent);}
+.callbtn svg{width:13px;height:13px;}
+
+.circle-person{display:flex; align-items:center; gap:12px; background:var(--surface-2); border:1px solid var(--line);
+  border-radius:var(--radius-sm); padding:12px 15px; margin-top:10px;}
+.circle-person .av{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;color:#fff;font-weight:700;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2)); font-family:var(--font-display);}
+.circle-person .info{margin-right:auto;}
+.circle-person .info b{display:block; font-size:.95rem;}
+.circle-person .info span{font-size:.8rem; color:var(--ink-soft);}
+
+/* ---------- SUPPORT NETWORK CONCEPT MAP ---------- */
+.cmap-wrap{margin:12px 0 4px;}
+.cmap-svg{width:100%; height:auto; display:block; max-width:520px; margin:0 auto;}
+.cmap-svg a{cursor:pointer;}
+.cmap-svg a:hover circle{stroke:var(--accent); stroke-width:4;}
+.cmap-center-t{font-family:var(--font-display); font-size:20px; fill:#fff; font-weight:500;}
+.cmap-init{font-family:var(--font-display); font-size:26px; fill:#fff; font-weight:600;}
+.cmap-name{font-family:var(--font-body); font-size:15px; fill:var(--ink); font-weight:700;}
+.cmap-call{font-family:var(--font-body); font-size:11px; fill:var(--ink-soft); letter-spacing:.4px;}
+.cmap-legend{display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin:8px 0 2px;}
+.leg{display:inline-flex; align-items:center; gap:7px; font-size:.82rem; color:var(--ink-soft);}
+.leg-dot{width:12px; height:12px; border-radius:50%; display:inline-block;}
+
+/* ---------- SOLID (non-link) SUGGESTION PILLS ---------- */
+.pill-solid{
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--font-body); font-weight:700; font-size:.84rem; color:#fff;
+  background:linear-gradient(135deg,var(--accent),var(--accent-deep));
+  padding:9px 16px; border-radius:var(--pill); cursor:default; user-select:text;
+}
+
+/* ---------- PRIVACY BUTTON + MODAL ---------- */
+.priv-btn{
+  font-family:var(--font-body); font-weight:700; font-size:.78rem; letter-spacing:.4px;
+  text-transform:uppercase; cursor:pointer; border:1.5px solid var(--line); color:var(--ink-soft);
+  background:var(--surface); padding:9px 14px; border-radius:var(--pill); white-space:nowrap;
+  display:inline-flex; align-items:center; gap:7px; transition:all .2s ease;
+}
+.priv-btn:hover{border-color:var(--accent); color:var(--accent-deep);}
+.priv-btn svg{width:14px; height:14px;}
+
+.modal-overlay{
+  position:fixed; inset:0; z-index:200; display:flex; align-items:flex-start; justify-content:center;
+  background:rgba(60,44,52,.45); backdrop-filter:blur(4px); padding:28px 16px; overflow-y:auto;
+  animation:fadein .25s ease both;
+}
+.modal-overlay[hidden]{display:none;}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.modal{
+  position:relative; width:100%; max-width:560px; background:var(--surface);
+  border:1px solid var(--line); border-radius:var(--radius); padding:28px 26px 24px;
+  box-shadow:var(--shadow-lift); margin:auto;
+}
+.modal-x{position:absolute; top:14px; right:16px; background:none; border:none; font-size:1.6rem; line-height:1;
+  color:var(--ink-faint); cursor:pointer; padding:2px 8px; border-radius:8px;}
+.modal-x:hover{color:var(--ink); background:var(--surface-2);}
+.priv-card{background:var(--surface-2); border:1px solid var(--line); border-radius:var(--radius-sm); padding:18px 20px; margin-top:16px;}
+.priv-card > b{font-size:1rem;}
+.priv-row{display:flex; gap:13px; align-items:flex-start;}
+.priv-ic{width:26px;height:26px;border-radius:50%;flex:none;display:grid;place-items:center;color:#fff;font-weight:800;font-size:.85rem;}
+.priv-ic.ok{background:linear-gradient(135deg,#8fc9a8,#6fae87);}
+.priv-row p{margin:5px 0 0; font-size:.88rem; color:var(--ink-soft);}
+.sync-head{display:flex; justify-content:space-between; gap:12px; align-items:flex-start;}
+.sync-head p{margin:6px 0 0; font-size:.88rem;}
+.badge-off,.badge-on{font-size:.68rem; font-weight:800; letter-spacing:.6px; text-transform:uppercase; padding:3px 10px; border-radius:999px; margin-left:10px; vertical-align:middle;}
+.badge-off{background:var(--line); color:var(--ink-soft);}
+.badge-on{background:linear-gradient(135deg,#8fc9a8,#6fae87); color:#fff;}
+.consent{display:flex; gap:10px; align-items:flex-start; font-size:.86rem; color:var(--ink); margin:10px 0; line-height:1.5; cursor:pointer;}
+.consent input{margin-top:3px; width:18px; height:18px; flex:none; accent-color:var(--accent-deep); cursor:pointer;}
+.small{font-size:.86rem;}
+.btn.danger{background:var(--surface); color:#c2607a; border:1.5px solid #e6b8c4;}
+.btn.danger:hover{background:#fbeef0; box-shadow:none;}
+.btn:disabled{opacity:.5; cursor:not-allowed; transform:none; box-shadow:none;}
+.circle-person .role-chip{font-size:.7rem; font-weight:700; padding:2px 9px; border-radius:999px; color:#fff; margin-left:8px;}
+
+/* medical disclaimer banner */
+.banner-wrap{max-width:var(--maxw); margin:0 auto; padding:8px 20px 0;}
+.med-banner{
+  display:flex; gap:12px; align-items:flex-start; position:relative;
+  background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--accent);
+  border-radius:var(--radius-sm); padding:14px 38px 14px 16px; box-shadow:var(--shadow-soft);
+}
+.med-banner svg{width:20px;height:20px;flex:none;color:var(--accent-deep);margin-top:2px;}
+.med-banner p{margin:0; font-size:.83rem; color:var(--ink-soft); line-height:1.55;}
+.med-banner p b{color:var(--ink);}
+.med-x{position:absolute; top:8px; right:10px; background:none; border:none; font-size:1.4rem; line-height:1; color:var(--ink-faint); cursor:pointer; padding:2px 6px; border-radius:8px;}
+.med-x:hover{color:var(--ink); background:var(--surface-2);}
+.med-banner.hide{display:none;}
+
+/* disclaimer */
+.disclaimer{margin-top:22px; font-size:.82rem; color:var(--ink-soft); text-align:center; line-height:1.6; max-width:60ch; margin-left:auto; margin-right:auto;}
+.foot-med{max-width:62ch; margin:0 auto 16px; line-height:1.6; font-size:.78rem;}
+footer.foot{text-align:center; padding:30px 20px 0; color:var(--ink-faint); font-size:.8rem;}
+footer.foot .heart{color:var(--accent-deep);}
+
+/* toast */
+.toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(30px);
+  background:var(--ink); color:#fff; padding:12px 22px; border-radius:var(--pill); font-size:.88rem; font-weight:600;
+  box-shadow:var(--shadow-lift); opacity:0; pointer-events:none; transition:all .35s ease; z-index:100;}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+@media (prefers-reduced-motion: reduce){
+  .hero .ambient{animation:none;}
+  .panel{animation:none;}
+  *{scroll-behavior:auto;}
+}
+.divider{height:1px;background:var(--line);margin:22px 0;border:none;}
+.section-head{margin:30px 0 4px;}
+
+/* ---------- KEEPSAKE PDF (print) ---------- */
+#printRoot{display:none;}
+.p-cover{text-align:center; padding:46px 30px 40px;}
+.p-orb{width:120px;height:120px;border-radius:50%;margin:0 auto 20px;
+  background:radial-gradient(circle at 38% 32%, var(--orb-a), var(--orb-b) 60%, var(--orb-c));
+  box-shadow:0 16px 40px -16px var(--ring);}
+.p-eyebrow{letter-spacing:3px;text-transform:uppercase;font-size:11px;color:var(--accent-deep);font-weight:700;margin:0 0 6px;}
+.p-title{font-family:var(--font-display);font-weight:400;font-size:36px;margin:4px 0 8px;line-height:1.1;color:var(--ink);}
+.p-sub{font-family:var(--font-display);font-style:italic;color:var(--ink-soft);font-size:17px;margin:0 auto;max-width:34ch;}
+.p-date{color:var(--ink-faint);font-size:12px;letter-spacing:1px;margin-top:14px;}
+.p-divider{width:60px;height:3px;border-radius:3px;margin:22px auto 4px;background:linear-gradient(90deg,var(--accent),var(--accent-deep));}
+.p-card{position:relative; border:1px solid var(--line); border-radius:20px; padding:22px 26px 18px 34px; margin:0 0 16px;
+  background:linear-gradient(135deg, var(--surface) 60%, var(--bg3)); break-inside:avoid; page-break-inside:avoid;}
+.p-bar{position:absolute; left:0; top:0; bottom:0; width:9px; border-radius:20px 0 0 20px;
+  background:linear-gradient(var(--accent),var(--accent-deep));}
+.p-num{position:absolute; right:20px; top:14px; font-family:var(--font-display); font-size:34px; color:var(--accent); opacity:.45; line-height:1;}
+.p-when{font-family:var(--font-display); font-size:21px; margin:0 0 12px; color:var(--ink); padding-right:40px;}
+.p-block{margin-bottom:10px;}
+.p-label{font-size:10px; letter-spacing:1.6px; text-transform:uppercase; color:var(--accent-deep); font-weight:700;}
+.p-block p{margin:3px 0 0; font-size:14px; line-height:1.55; white-space:pre-wrap; color:var(--ink);}
+.p-foot{text-align:center; font-family:var(--font-display); font-style:italic; color:var(--ink-soft); margin-top:26px; font-size:15px; break-inside:avoid;}
+.p-section{font-family:var(--font-display); font-size:25px; color:var(--accent-deep); text-align:center; margin:32px 0 16px; break-after:avoid; page-break-after:avoid;}
+.p-letter{position:relative; border:1px solid var(--line); border-radius:20px; padding:24px 28px 22px 34px; margin:0 0 16px; background:linear-gradient(135deg, var(--surface) 65%, var(--bg3)); break-inside:avoid; page-break-inside:avoid;}
+.p-meta{font-size:11px; letter-spacing:1px; color:var(--ink-faint); margin:-6px 0 12px;}
+.p-body{font-size:14.5px; line-height:1.75; white-space:pre-wrap; color:var(--ink);}
+
+@media print{
+  body > *{display:none !important;}
+  #printRoot{display:block !important;}
+  @page{margin:14mm;}
+  html,body{background:#fff !important;}
+  *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+}
+</style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/config.js"></script>
+  <style>
+  #authGate{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:22px;background:radial-gradient(900px 500px at 80% -5%,#f7f3fc,transparent 60%),linear-gradient(170deg,#fefaf9,#f7e9ee);font-family:'Nunito Sans',system-ui,sans-serif}
+  #authGate[hidden]{display:none}
+  body.gated{overflow:hidden}
+  #authGate .gate-card{background:#fffdfc;border:1px solid #f2e2e7;border-radius:26px;max-width:420px;width:100%;padding:34px 30px;text-align:center;box-shadow:0 30px 70px -30px rgba(120,70,90,.4)}
+  #authGate .gate-orb{width:74px;height:74px;border-radius:50%;margin:0 auto 18px;background:radial-gradient(circle at 38% 32%,#f9e2e6,#f1cdd5 62%,#f9ece3);box-shadow:0 14px 30px -12px rgba(221,170,181,.7),inset 0 3px 8px rgba(255,255,255,.7);animation:gatePulse 7s ease-in-out infinite}
+  @keyframes gatePulse{0%,100%{transform:scale(.95)}50%{transform:scale(1.05)}}
+  @media (prefers-reduced-motion:reduce){#authGate .gate-orb{animation:none}}
+  #authGate .gate-eyebrow{font-size:.7rem;letter-spacing:2.4px;text-transform:uppercase;color:#c98f9c;font-weight:700;margin:0 0 8px}
+  #authGate h2{font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:1.7rem;color:#5f4c54;margin:0 0 10px;line-height:1.15}
+  #authGate .gate-msg{color:#9a848e;font-size:.98rem;margin:0 0 18px;line-height:1.55}
+  #authGate input{width:100%;border:1.5px solid #eccfd6;border-radius:14px;padding:13px 15px;font-size:1rem;font-family:inherit;color:#5f4c54;margin-bottom:12px;background:#fff}
+  #authGate input:focus{outline:none;border-color:#ddaab5}
+  #authGate .gate-btn{width:100%;border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:1rem;color:#fff;padding:14px 20px;border-radius:999px;background:linear-gradient(135deg,#eecad0,#ddaab5);box-shadow:0 14px 30px -12px rgba(221,170,181,.8);margin-bottom:10px}
+  #authGate .gate-btn.ghost{background:transparent;color:#c98f9c;border:1.5px solid #eccfd6;box-shadow:none}
+  #authGate .gate-fine{font-size:.78rem;color:#b9a7ae;margin:10px 0 0;line-height:1.5}
+  #authGate .gate-fine a{color:#c98f9c}
+  </style>
+</head>
+<body>
+
+<div id="authGate" role="dialog" aria-modal="true" aria-label="Sign in to Tender Days">
+  <div class="gate-card">
+    <div class="gate-orb"></div>
+    <div id="gateLoading" class="gate-view">
+      <p class="gate-eyebrow">Tender Days</p>
+      <p class="gate-msg">One soft moment&hellip;</p>
+    </div>
+    <div id="gateSignin" class="gate-view" hidden>
+      <p class="gate-eyebrow">Welcome</p>
+      <h2>A soft place, just for you</h2>
+      <p class="gate-msg">Enter your email and we&rsquo;ll send you a 6-digit code to sign in &mdash; no password to remember.</p>
+      <input id="gateEmailInput" type="email" placeholder="you@example.com" autocomplete="email" inputmode="email" />
+      <button id="gateSendCode" class="gate-btn">Email me a code</button>
+      <p class="gate-fine">We store only your email to run your account. Your journal, letters, and moments stay on your device.</p>
+    </div>
+    <div id="gateCode" class="gate-view" hidden>
+      <p class="gate-eyebrow">Check your inbox</p>
+      <h2>Enter your code</h2>
+      <p class="gate-msg">We sent a 6-digit code to <b id="codeEmail"></b>. Type it in below to continue.</p>
+      <input id="gateCodeInput" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="12345678" style="text-align:center; letter-spacing:.4em; font-size:1.4rem; font-weight:700;" />
+      <button id="gateVerifyBtn" class="gate-btn">Verify code</button>
+      <p id="codeError" class="gate-fine" style="color:#c0788a;"></p>
+      <p class="gate-fine">Didn&rsquo;t get it? <a href="#" id="gateResend">Use a different email or resend</a>.</p>
+    </div>
+    <div id="gateSubscribe" class="gate-view" hidden>
+      <p class="gate-eyebrow">Start your free week</p>
+      <h2>7 days free, then $7.99/month</h2>
+      <p class="gate-msg">Full access to every gentle tool. Cancel anytime &mdash; we&rsquo;ll remind you before your trial ends.</p>
+      <button id="gateSubscribeBtn" class="gate-btn">Start my 7-day free trial</button>
+      <button id="gateManage" class="gate-btn ghost" style="display:none">Manage subscription</button>
+      <p class="gate-fine">Signed in as <span id="gateEmail2"></span> &middot; <a href="#" class="gate-signout">sign out</a></p>
+      <p class="gate-fine">By continuing you agree to the <a href="/terms.html" target="_blank">Terms</a> and <a href="/privacy.html" target="_blank">Privacy Policy</a>. After your 7-day trial, $7.99/month until cancelled.</p>
+    </div>
+  </div>
+</div>
+
+
+<header class="top">
+  <div class="brand">
+    <div class="mark" aria-hidden="true"></div>
+    <div>
+      <h1>Tender Days</h1>
+      <p>a soft place for the early days of motherhood</p>
+    </div>
+  </div>
+  <div class="tools">
+    <div class="palette" role="group" aria-label="Choose a color mood">
+      <button class="swatch sw-blush" data-set="blush" aria-pressed="true" title="Blush dawn" aria-label="Blush dawn"></button>
+      <button class="swatch sw-lavender" data-set="lavender" aria-pressed="false" title="Lavender hush" aria-label="Lavender hush"></button>
+      <button class="swatch sw-sage" data-set="sage" aria-pressed="false" title="Sage calm" aria-label="Sage calm"></button>
+      <button class="swatch sw-sky" data-set="sky" aria-pressed="false" title="Sky lullaby" aria-label="Sky lullaby"></button>
+      <button class="swatch sw-clay" data-set="clay" aria-pressed="false" title="Soft coral" aria-label="Soft coral"></button>
+    </div>
+    <button class="priv-btn" id="privacyBtn" title="Privacy & data">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="m9 12 2 2 4-4"/></svg>
+      Privacy
+    </button>
+    <button class="help-now" id="helpNow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+      Need support
+    </button>
+  </div>
+</header>
+
+<div class="banner-wrap">
+  <div class="med-banner" id="medBanner" role="note">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+    <p><b>A gentle note:</b> Tender Days offers comfort and self-care ideas — it is not medical care, diagnosis, or treatment, and it can't replace your doctor, midwife, nurse, or a mental-health professional. If low or anxious feelings last beyond about two weeks, get worse, or you ever have thoughts of harming yourself or your baby, please reach out right away: call or text <b>988</b>, or the Maternal Mental Health Hotline at <b>1-833-852-6262</b>. In an emergency, call <b>911</b>.</p>
+    <button class="med-x" id="medClose" aria-label="Dismiss this note">&times;</button>
+  </div>
+</div>
+
+<div class="tabbar-wrap">
+  <nav class="tabbar" role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" aria-selected="true" data-tab="home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M12 14a2 2 0 0 1 2-2 2 2 0 0 1-2-2 2 2 0 0 1-2 2 2 2 0 0 1 2 2z"/></svg>Home</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="breathe">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="8.5" opacity=".6"/></svg>Breathe</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="calm">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l11-2v12"/><circle cx="6" cy="18" r="2.6"/><circle cx="17" cy="16" r="2.6"/></svg>Calm</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="journal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M9 8h6M9 12h6"/></svg>Journal</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="notes">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 5.5L20 7"/><path d="M12 21c.6-1.3 2-2 2-2"/></svg>Notes to little one</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="reframe">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 4v4h-4"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 20v-4h4"/></svg>Reframe</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="quotes">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h4v4c0 2.5-1.5 4-4 4.5"/><path d="M14 7h4v4c0 2.5-1.5 4-4 4.5"/></svg>Quotes</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="support">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.6"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="M10 11 6.5 7.5M14 11 17.5 7.5M10 13l-3.5 3.5M14 13l3.5 3.5"/></svg>My Circle</button>
+  </nav>
+</div>
+
+<main class="wrap">
+
+  <!-- ============ HOME ============ -->
+  <section class="panel active" id="home" role="tabpanel">
+    <div class="card hero">
+      <div class="ambient" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <p class="eyebrow" id="timeEyebrow">Welcome back</p>
+        <div class="greeting" id="greeting">Hello, <em>mama</em>.</div>
+        <p class="affirm-home" id="homeAffirm">You are exactly the mother your baby needs.</p>
+        <p class="mood-q">How are you feeling, honestly?</p>
+        <div class="moods" id="moodRow" role="group" aria-label="How you feel right now"></div>
+        <div class="mood-reply" id="moodReply" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="card section-head" style="margin-top:18px;">
+      <p class="eyebrow">Small ways to be kind to yourself</p>
+      <h2 class="title">Gentle wellness, in tiny doses</h2>
+      <p class="lead">Nothing here is a to-do list. Pick one thing, only if it helps. The rest can wait.</p>
+      <div class="well-grid" style="margin-top:20px;" id="wellGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ BREATHE ============ -->
+  <section class="panel" id="breathe" role="tabpanel">
+    <div class="card">
+      <p class="eyebrow">A moment to soften</p>
+      <h2 class="title">Breathe with me</h2>
+      <p class="lead">When the day is loud, slow breathing tells your body it is safe. Follow the orb — let it set the pace.</p>
+
+      <div class="pattern-row" id="patternRow" role="group" aria-label="Breathing patterns" style="margin-top:18px;"></div>
+
+      <div class="breathe-stage">
+        <div class="orb-holder">
+          <div class="orb-ring" aria-hidden="true"></div>
+          <div class="orb exhale" id="orb" aria-hidden="true"></div>
+        </div>
+        <div class="phase" id="phaseLabel">Ready when you are</div>
+        <div class="count-ring" id="countLabel"></div>
+        <div class="cycles" id="cycleLabel"></div>
+        <div style="margin-top:18px; display:flex; gap:10px;">
+          <button class="btn" id="breatheBtn">Begin</button>
+        </div>
+        <p class="tiny" style="margin-top:16px; max-width:34ch; text-align:center;">If you start to feel light-headed, just return to your own natural breath. There is no wrong way to do this.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CALM ============ -->
+  <section class="panel" id="calm" role="tabpanel">
+    <div class="card">
+      <p class="eyebrow">Soft sound</p>
+      <h2 class="title">A little quiet</h2>
+      <p class="lead">Gentle, looping soundscapes — generated softly, so they work offline and never end abruptly. Tap one to begin. Lovely with headphones while you rock or rest.</p>
+      <div class="scapes" id="scapeGrid" style="margin-top:20px;"></div>
+      <div class="vol-row">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--ink-soft)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/></svg>
+        <input type="range" id="vol" min="0" max="100" value="55" aria-label="Volume" />
+      </div>
+      <p class="now-playing" id="nowPlaying" aria-live="polite">Nothing playing yet.</p>
+      <p class="tiny" style="margin-top:6px;">Sound starts only when you tap a tile — your phone won't surprise you with noise.</p>
+    </div>
+  </section>
+
+  <!-- ============ JOURNAL ============ -->
+  <section class="panel" id="journal" role="tabpanel">
+    <div class="card">
+      <p class="eyebrow">Your private pages</p>
+      <h2 class="title">Journal</h2>
+      <p class="lead">A place to set things down — no one reads this but you. Write a line or a page, whatever you have in you.</p>
+      <div class="prompt-bubble" id="journalPrompt">Loading a gentle prompt…</div>
+      <button class="btn ghost small" id="newPrompt" style="margin-bottom:14px;">New prompt</button>
+      <textarea id="journalText" rows="5" placeholder="Today, I…"></textarea>
+      <div class="toolbar">
+        <button class="btn" id="saveJournal">Save entry</button>
+        <button class="btn ghost" id="journalPdf">Create journal PDF</button>
+      </div>
+      <p class="tiny" style="margin-top:12px;">Entries live only in this window for now. Tap <b>Create journal PDF</b> to save them as a pretty keepsake (choose <b>Save as PDF</b> in the print window) before you close the page.</p>
+      <hr class="divider" />
+      <h3>Your entries</h3>
+      <div id="journalList"></div>
+    </div>
+  </section>
+
+  <!-- ============ NOTES TO BABY (LETTERS + MOMENTS) ============ -->
+  <section class="panel" id="notes" role="tabpanel">
+    <div class="card">
+      <p class="eyebrow">A keepsake in the making</p>
+      <h2 class="title">Letters &amp; moments</h2>
+      <p class="lead">Two keepsakes for your little one — letters written to them, and meaningful moments worth remembering. Gather them here, then turn it all into a beautiful PDF for a journal or memory book.</p>
+
+      <hr class="divider" />
+      <h3>A letter to your little one</h3>
+      <p class="muted" style="margin:0 0 14px;">Tell them about now — the love, the hard parts, the tiny things you don't want to forget.</p>
+      <div class="prompt-bubble" id="notePrompt">Loading a gentle prompt…</div>
+      <button class="btn ghost small" id="newNotePrompt" style="margin-bottom:14px;">New prompt</button>
+      <div class="field" style="margin-bottom:12px;">
+        <input type="text" id="noteTitle" placeholder="A title, if you like — 'Week three', 'The night you smiled'…" />
+      </div>
+      <textarea id="noteText" rows="6" placeholder="My darling,&#10;&#10;Today…"></textarea>
+      <div class="toolbar">
+        <button class="btn" id="saveNote">Save this letter</button>
+      </div>
+      <div id="noteList" style="margin-top:16px;"></div>
+
+      <hr class="divider" />
+      <h3>A meaningful moment</h3>
+      <p class="muted" style="margin:0 0 14px;">Catch a moment that mattered — when it was, what happened, and why it stayed with you.</p>
+      <div class="field"><label class="fld" for="m_when">When was it?</label>
+        <p class="fld-hint">A time or a marker — "this morning", "day 12", "the 3am feed".</p>
+        <input type="text" id="m_when" placeholder="This morning" /></div>
+      <div class="field"><label class="fld" for="m_what">What happened?</label>
+        <p class="fld-hint">The moment itself, however small.</p>
+        <textarea id="m_what" rows="2" placeholder="She gripped my finger and looked right at me."></textarea></div>
+      <div class="field"><label class="fld" for="m_why">Why did it matter?</label>
+        <p class="fld-hint">What it stirred in you, or what you want to remember.</p>
+        <textarea id="m_why" rows="2" placeholder="It felt like she knows me — like we're a team."></textarea></div>
+      <div class="toolbar">
+        <button class="btn" id="saveMoment">Bank this moment</button>
+        <button class="btn ghost" id="clearMoment">Clear</button>
+      </div>
+      <div id="momentList" style="margin-top:16px;"></div>
+
+      <hr class="divider" />
+      <h3>Your keepsakes</h3>
+      <p class="muted" style="margin:0 0 12px;">Turn your letters and your moments into two beautiful PDFs — perfect to print for a journal or memory book, or save to keep. Each one prints on its own.</p>
+      <div class="field" style="margin-bottom:14px;">
+        <label class="fld" for="keepName">Your little one's name for the covers <span class="muted" style="font-weight:400">(optional)</span></label>
+        <input type="text" id="keepName" placeholder="e.g. Amara — so each cover reads 'For Amara'" />
+      </div>
+      <div class="toolbar">
+        <button class="btn" id="lettersPdf">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 5.5L20 7"/></svg>
+          Letters PDF
+        </button>
+        <button class="btn" id="momentsPdf">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.3 5.2 5.7.5-4.3 3.8 1.3 5.6L12 21l-5.3 0.7 1.3-5.6L3.7 8.7l5.7-.5z"/></svg>
+          Moments PDF
+        </button>
+      </div>
+      <p class="tiny" style="margin-top:10px;">Each opens your browser's print window — choose <b>Save as PDF</b> as the destination. Letters and moments live only in this window until you save the PDFs.</p>
+    </div>
+  </section>
+
+  <!-- ============ REFRAME (CBT) ============ -->
+  <section class="panel" id="reframe" role="tabpanel">
+    <div class="card">
+      <p class="eyebrow">CBT worksheets</p>
+      <h2 class="title">Gentle thinking tools</h2>
+      <p class="lead">A small set of CBT exercises for the heavy moments. Pick one that fits how you feel — there's no right order, and you can skip any field.</p>
+
+      <div class="pattern-row" id="wsPicker" role="group" aria-label="Choose a worksheet" style="margin-top:16px;"></div>
+      <p class="prompt-bubble" id="wsIntro" style="font-style:italic;"></p>
+      <div id="wsFields"></div>
+
+      <div class="toolbar">
+        <button class="btn" id="saveCbt">Save this worksheet</button>
+        <button class="btn ghost" id="clearCbt">Clear</button>
+        <button class="btn ghost" id="downloadCbt">Download my worksheets</button>
+      </div>
+      <hr class="divider" />
+      <h3>Saved worksheets</h3>
+      <div id="cbtList"></div>
+    </div>
+  </section>
+
+  <!-- ============ QUOTES ============ -->
+  <section class="panel" id="quotes" role="tabpanel">
+    <div class="card quote-card">
+      <div class="glow" aria-hidden="true"></div>
+      <span class="qmark" aria-hidden="true">&ldquo;</span>
+      <p class="quote-text" id="bigQuote">You are doing something genuinely hard, and you are doing it with love.</p>
+      <button class="btn" id="newQuote">Another one</button>
+    </div>
+    <div class="card">
+      <p class="eyebrow">Little reminders</p>
+      <h3>Tuck these somewhere you'll see them</h3>
+      <p class="muted" style="margin:0 0 18px;">Gentle nudges for the long days. None of them are orders — just permission.</p>
+      <div class="reminders" id="reminderGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ MY CIRCLE ============ -->
+  <section class="panel" id="support" role="tabpanel">
+    <div class="card" id="supportTop">
+      <p class="eyebrow">The people who hold you</p>
+      <h2 class="title">My circle</h2>
+      <p class="lead">You're not meant to do this alone. Add the people you can lean on — your partner, family, a friend, a neighbor, your doctor — and watch your support network take shape. On a hard day, they're one tap away.</p>
+
+      <div class="grid two" style="margin-top:18px;">
+        <div class="field" style="margin-bottom:12px;"><label class="fld" for="circleName">Name</label>
+          <input type="text" id="circleName" placeholder="e.g. Mom, Dr. Lee, Sam" /></div>
+        <div class="field" style="margin-bottom:12px;"><label class="fld" for="circleRole">They are my…</label>
+          <select id="circleRole">
+            <option value="Partner">Partner</option>
+            <option value="Family">Family</option>
+            <option value="Friend" selected>Friend</option>
+            <option value="Neighbor">Neighbor</option>
+            <option value="Professional">Doctor / Midwife</option>
+            <option value="Other">Other</option>
+          </select></div>
+      </div>
+      <div class="grid two">
+        <div class="field" style="margin-bottom:12px;"><label class="fld" for="circlePhone">Phone <span class="muted" style="font-weight:400">(optional — lets you tap to call)</span></label>
+          <input type="tel" id="circlePhone" placeholder="e.g. 555 123 4567" /></div>
+        <div class="field" style="margin-bottom:12px;"><label class="fld" for="centerName">Your name in the middle <span class="muted" style="font-weight:400">(optional)</span></label>
+          <input type="text" id="centerName" placeholder="Me" /></div>
+      </div>
+      <button class="btn small" id="addCircle">Add to my circle</button>
+    </div>
+
+    <div class="card">
+      <p class="eyebrow">Your support network</p>
+      <h3>Everyone who's got you</h3>
+      <p class="muted" style="margin:0 0 6px;">Tap a person to call them (if you've added a number).</p>
+      <div id="cmapWrap" class="cmap-wrap"></div>
+      <div id="cmapLegend" class="cmap-legend"></div>
+      <div id="circleList" style="margin-top:10px;"></div>
+    </div>
+
+    <div class="card" id="crisisCard">
+      <p class="eyebrow">If you ever need urgent help</p>
+      <h3>Always here, day or night</h3>
+      <p class="muted" style="margin:0 0 12px;">These are permanent national lines — free, confidential, and available 24/7. Nothing here needs updating. Save the ones you'd want close by.</p>
+      <div class="acts" style="display:flex; gap:9px; flex-wrap:wrap;">
+        <span class="pill-solid">988 — call or text</span>
+        <span class="pill-solid">Text HOME to 741741</span>
+        <span class="pill-solid">911 in an emergency</span>
+      </div>
+    </div>
+
+    <p class="disclaimer">Tender Days is a gentle companion, not medical care. If low or anxious feelings linger, deepen, or frighten you, please tell your doctor, midwife, or nurse. Postpartum depression and anxiety are real, common, and very treatable. You deserve to feel like yourself again.</p>
+  </section>
+
+  <footer class="foot">
+    <p class="foot-med">Tender Days is a self-care companion — not medical advice, diagnosis, or treatment. For any concern about your health or your baby's, please contact a qualified professional. Help any time: <b>988</b> (Suicide &amp; Crisis Lifeline) · <b>1-833-852-6262</b> (Maternal Mental Health Hotline) · <b>911</b> in an emergency.</p>
+    Made tenderly, for the long nights and the soft mornings. <span class="heart">&hearts;</span>
+  </footer>
+</main>
+
+<div id="printRoot" aria-hidden="true"></div>
+<div class="modal-overlay" id="privacyModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="privTitle">
+    <button class="modal-x" id="privClose" aria-label="Close">&times;</button>
+    <p class="eyebrow">Privacy &amp; data</p>
+    <h2 class="title" id="privTitle">Your privacy, your choice</h2>
+
+    <div class="priv-card">
+      <div class="priv-row">
+        <span class="priv-ic ok">&check;</span>
+        <div>
+          <b>Your words stay on this device</b>
+          <p>Your journal, letters, moments, and circle are kept only in this window on your device — they're never uploaded to our servers. Closing the tab clears them, which is why the PDF buttons are how you keep them.</p>
+          <p style="margin-top:8px;">To run your account and subscription, we store just two things on our servers: your <b>email address</b> and whether your <b>subscription is active</b>. Nothing you write is ever included.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="priv-card">
+      <div class="sync-head">
+        <div>
+          <b>Cloud sync</b><span class="badge-off" id="syncBadge">Off</span>
+          <p class="muted">Optional, and separate from signing in. Turning this on would also upload the things you write to your account so they survive closing the app and sync across devices.</p>
+        </div>
+      </div>
+
+      <div id="syncConsent">
+        <p class="muted small" style="margin:14px 0 6px;">Before turning this on, please read and agree:</p>
+        <label class="consent"><input type="checkbox" class="cbox" id="c1"> <span>I understand my journal, letters, moments, and circle will be <b>stored on a secure server</b>, not only on my device.</span></label>
+        <label class="consent"><input type="checkbox" class="cbox" id="c2"> <span>I consent to my entries being collected and stored for the purpose of syncing them to my account.</span></label>
+        <label class="consent"><input type="checkbox" class="cbox" id="c3"> <span>I understand I can export or permanently delete my data, and withdraw this consent, at any time.</span></label>
+        <div class="field" style="margin-top:12px;">
+          <label class="fld" for="syncEmail">Email for your account</label>
+          <input type="email" id="syncEmail" placeholder="you@example.com" />
+        </div>
+        <button class="btn" id="enableSync" disabled>Create account &amp; turn on sync</button>
+        <p class="tiny" style="margin-top:8px;">Sync uses an encrypted connection. By continuing you agree to the Privacy Policy and Terms.</p>
+      </div>
+
+      <div id="syncOn" hidden>
+        <p class="muted" style="margin:14px 0 12px;">Sync is on for <b id="syncEmailShow"></b>. Your entries save to your account automatically.</p>
+        <button class="btn ghost" id="disableSync">Turn off &amp; withdraw consent</button>
+      </div>
+    </div>
+
+    <div class="priv-card">
+      <b>Your data</b>
+      <p class="muted small" style="margin:4px 0 0;">Take a copy, or wipe everything from this device right now.</p>
+      <div class="toolbar">
+        <button class="btn ghost small" id="exportData">Download a copy of my data</button>
+        <button class="btn small danger" id="deleteData">Delete all my data</button>
+      </div>
+    </div>
+
+    <p class="tiny" style="margin-top:14px;">Tender Days is a wellness companion, not medical care or a substitute for professional help.</p>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===================== DATA ===================== */
+const AFFIRMATIONS = [
+  "You are exactly the mother your baby needs.",
+  "You are learning her, and she is learning you. Be patient with you both.",
+  "Rest is not a reward you earn. It is a need you are allowed to meet.",
+  "Asking for help is a kind of strength your baby will learn from you.",
+  "You can love your baby and still grieve your old life. Both can be true.",
+  "This hard hour is not the whole story. It will soften.",
+  "Your worth was never measured in how much you got done today.",
+  "Fed, warm, and loved is enough. You are enough.",
+  "The fog will lift. You will feel like yourself again, in time.",
+  "You are allowed to put the baby down safely and simply breathe.",
+  "Some days, getting through is the victory. That fully counts.",
+  "Your body grew a whole person. Be gentle with it now.",
+  "You don't have to feel grateful every minute to be a wonderful mom.",
+  "It's okay if today you just held on. Holding on is brave.",
+  "You are not failing. You are doing something genuinely hard.",
+  "A calm mom is more precious than a perfect one. Tend to you, too.",
+  "Whatever you're feeling is allowed here. You don't have to perform okay.",
+  "You will not feel this tired forever. This season really does end.",
+  "Healing isn't a straight line. One hard day doesn't erase your progress.",
+  "You are someone's whole world tonight, exactly as you are.",
+  "Let the house be messy. You're growing a person, not a showroom.",
+  "Your baby doesn't need a perfect mom. They need you — and they have you.",
+  "It's okay to miss who you were. You're becoming someone new, slowly.",
+  "Your needs didn't vanish when you became a mom. You're allowed to have them.",
+  "One feed, one nap, one breath at a time. That's the whole job today.",
+  "The love is there even on days you can't feel it. Trust that it's holding.",
+  "You came back to try again today. That isn't nothing — that's everything."
+];
+
+const REMINDERS = [
+  "Have you had water recently? Take one slow sip now.",
+  "If you can, step into a doorway or window for a minute of light.",
+  "It's safe to lay baby down in their crib and step away to breathe.",
+  "You're allowed to say no to visitors today.",
+  "Lower the bar. 'Done' is kinder than 'perfect' right now.",
+  "Text one person who loves you. You don't have to carry this alone.",
+  "Eat something, even something small. You matter too.",
+  "Tears are okay. Let them come — they always pass.",
+  "You don't have to bounce back. There's no race.",
+  "Put your hand on your heart. Feel it still beating for you."
+];
+
+const WELLNESS = [
+  {t:"Rest in fragments", d:"Sleep in whatever pieces the day allows. Twenty minutes still counts.", i:"moon"},
+  {t:"A little light", d:"A few minutes of daylight can lift a heavy mind, even from the window.", i:"sun"},
+  {t:"Gentle movement", d:"A slow sway, a stretch, a short walk — only if your body wants it.", i:"walk"},
+  {t:"One small thing", d:"Pick a single tiny task. Let everything else wait for another day.", i:"check"},
+  {t:"Reach out", d:"A short text or call to someone who understands eases the weight.", i:"chat"},
+  {t:"Keep it near", d:"Snacks, water, a phone charger within arm's reach of where you feed.", i:"cup"}
+];
+
+const PROMPTS = [
+  "What did my body do for me today, even if it felt invisible?",
+  "Name one moment, however small, that felt soft today.",
+  "What would I say to a friend who felt exactly how I feel right now?",
+  "What am I carrying that I could set down, just for tonight?",
+  "Who in my life makes me feel a little less alone?",
+  "What does my baby actually need from me right now? Is it less than I fear?",
+  "What's one thing I'm proud of getting through this week?",
+  "If today gets to be 'enough', what would 'enough' look like?",
+  "What feeling have I been pushing away? Can I let it be here for a moment?",
+  "What is one kind thing I could do for myself in the next hour?"
+];
+
+const NOTE_PROMPTS = [
+  "The first time I held you, I…",
+  "Something I want you to know about the day you were born…",
+  "When you're older, I hope you always…",
+  "Right now, your very favorite thing is…",
+  "A tiny moment from this week I never want to forget…",
+  "Here's what your little hands and feet look like today…",
+  "If I could tell you one thing about how loved you are…",
+  "The hardest and the best part of being your mom so far…",
+  "A wish I'm holding quietly for you…",
+  "Today, you taught me…",
+  "On the nights I'm tired, here's what keeps me going…",
+  "One day I'll tell you the story of how you came into the world…"
+];
+
+const WORKSHEETS = [
+  {
+    id:"thought", name:"Thought record", sub:"untangle a hard thought",
+    intro:"When a heavy thought takes over, it can help to slow it down and look at it kindly. Fill in what feels true.",
+    fields:[
+      {id:"situation", label:"What happened?", hint:"The moment or situation, just the facts.", type:"textarea", rows:2, ph:"The baby cried for an hour and I couldn't settle her…"},
+      {id:"thought", label:"The thought that showed up", hint:"The story your mind told you about it.", type:"textarea", rows:2, ph:"I'm a bad mom. I don't know what I'm doing."},
+      {id:"emotion", label:"How it made you feel, and how strong (0–100%)", type:"text", ph:"Guilty, hopeless — about 85%"},
+      {id:"against", label:"What might say the thought isn't the whole truth?", hint:"Times it wasn't true. Other reasons. What you'd tell a friend.", type:"textarea", rows:3, ph:"She's fed and safe. All babies cry. I showed up and kept trying."},
+      {id:"forr", label:"What feels like it supports the thought?", hint:"Be honest, but notice if it's a feeling rather than a fact.", type:"textarea", rows:3, ph:"I felt clueless and overwhelmed in the moment."},
+      {id:"balanced", label:"A kinder, more balanced way to see it", hint:"Not forced positivity — just fairer and truer.", type:"textarea", rows:2, ph:"This was a hard hour, not proof of who I am. I'm learning her, and I kept her safe."},
+      {id:"after", label:"How strong is the feeling now? (0–100%)", type:"text", ph:"Maybe 55% — a little lighter"}
+    ],
+    recap:v=>`<b>Thought:</b> ${esc(v.thought||"—")}<br><b>Kinder view:</b> ${esc(v.balanced||"—")}<br><b>Feeling:</b> ${esc(v.emotion||"—")} &rarr; ${esc(v.after||"—")}`
+  },
+  {
+    id:"worry", name:"Worry time", sub:"hold it, then set it down",
+    intro:"Worry loves the small hours. Name it, decide if there's anything to do, then give yourself permission to put it down until morning.",
+    fields:[
+      {id:"worry", label:"What's worrying you right now?", type:"textarea", rows:2, ph:"What if something's wrong and I don't notice?"},
+      {id:"solvable", label:"Can I act on this, or is it a 'what-if' to let pass?", type:"text", ph:"Mostly a what-if — nothing to do at 3am."},
+      {id:"action", label:"If there's one small step, what is it — and when?", type:"textarea", rows:2, ph:"Ask the nurse about feeding on Thursday."},
+      {id:"letgo", label:"A sentence to release the rest for now", hint:"Permission to stop carrying it tonight.", type:"textarea", rows:2, ph:"I've done what I can today. This can wait until morning."}
+    ],
+    recap:v=>`<b>Worry:</b> ${esc(v.worry||"—")}<br><b>Next step:</b> ${esc(v.action||"—")}<br><b>Letting go:</b> ${esc(v.letgo||"—")}`
+  },
+  {
+    id:"compassion", name:"Self-compassion", sub:"speak to yourself like a friend",
+    intro:"You'd never speak to a friend the way the hard days make you speak to yourself. Let's practice the kinder voice.",
+    fields:[
+      {id:"hard", label:"What are you being hard on yourself about?", type:"textarea", rows:2, ph:"I lost my patience and raised my voice."},
+      {id:"friend", label:"What would you say to a friend who told you this?", hint:"Use those same words on yourself. You deserve them too.", type:"textarea", rows:3, ph:"You're exhausted and human. One hard moment doesn't undo all the love."},
+      {id:"common", label:"A reminder that you're not alone in this", hint:"Other moms feel this too — it's part of it.", type:"text", ph:"Every mother has lost it sometimes. It's so common."},
+      {id:"kind", label:"One kind thing you can do for yourself now", type:"textarea", rows:2, ph:"Sit down with a warm drink for five minutes."}
+    ],
+    recap:v=>`<b>Kind words:</b> ${esc(v.friend||"—")}<br><b>For me now:</b> ${esc(v.kind||"—")}`
+  },
+  {
+    id:"good", name:"Three good things", sub:"tiny moments that counted",
+    intro:"Tired minds hold the hard and drop the good. Catch three small things, however ordinary, before they slip away.",
+    fields:[
+      {id:"g1", label:"One good thing", hint:"However small — a smell, a sound, a second of calm.", type:"text", ph:"The way she gripped my finger this morning."},
+      {id:"g2", label:"Another good thing", type:"text", ph:"Hot coffee, still warm when I drank it."},
+      {id:"g3", label:"A third good thing", type:"text", ph:"My partner took the night feed so I slept."},
+      {id:"why", label:"Why did one of these matter to you?", hint:"Optional — only if a reason comes.", type:"textarea", rows:2, ph:"It reminded me I'm not doing this all alone."}
+    ],
+    recap:v=>`<b>Good things:</b> ${esc(v.g1||"—")}; ${esc(v.g2||"—")}; ${esc(v.g3||"—")}`
+  },
+  {
+    id:"step", name:"One small step", sub:"a gentle nudge back to you",
+    intro:"When everything feels flat, doing one small, nourishing thing can lift the fog a little — not because you feel like it, but to feel a little better afterward.",
+    fields:[
+      {id:"activity", label:"One small thing that usually feels good", hint:"Tiny counts: a shower, a song, fresh air, a friend's voice.", type:"text", ph:"Step onto the balcony with my tea."},
+      {id:"when", label:"When could it fit today?", type:"text", ph:"During her next nap."},
+      {id:"barrier", label:"What might get in the way, and how to make it easier?", type:"textarea", rows:2, ph:"I'm tired — so keep it to five minutes, no pressure."},
+      {id:"felt", label:"After you do it, how did it feel?", hint:"Fill this in later. Even '2% better' is real data.", type:"text", ph:"A little lighter. Glad I did."}
+    ],
+    recap:v=>`<b>Step:</b> ${esc(v.activity||"—")} (${esc(v.when||"—")})<br><b>After:</b> ${esc(v.felt||"—")}`
+  }
+];
+
+const MOODS = {
+  "Heavy":      {msg:"Heaviness like this deserves company, not silence. Let's start small — one slow breath. And if this feeling stays a while, it's worth telling a real person on the Support page. They answer with kindness.", tab:"breathe"},
+  "Anxious":    {msg:"When your mind is racing ahead, breathing brings you back to right now. The Breathe space can slow the spin. You're safe in this moment.", tab:"breathe"},
+  "Numb":       {msg:"Feeling flat or far away is a real symptom, not a failing — and it's worth mentioning to your doctor or a hotline on the Support page. You don't have to feel it alone.", tab:"support"},
+  "Tired":      {msg:"Of course you're tired — you're doing round-the-clock work. Lower the bar today. Rest in fragments, and let one thing go.", tab:"home"},
+  "Tender":     {msg:"Weepy days are so common in the early weeks. Tears aren't a problem to fix — let them move through you. A gentle quote might be a soft place to land.", tab:"quotes"},
+  "Overwhelmed":{msg:"When everything is too much at once, we make it smaller. One breath, then the next one. That's all that's being asked of you right now.", tab:"breathe"},
+  "Okay":       {msg:"'Okay' is a lovely place to be. Maybe tuck a reminder or two somewhere you'll see them later, for the harder hours.", tab:"quotes"},
+  "Hopeful":    {msg:"That little spark matters — hold it gently. Maybe jot it down in your journal so future-you can find it on a heavier day.", tab:"journal"}
+};
+
+/* ===================== ICONS for wellness ===================== */
+const ICONS = {
+  moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>',
+  sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/></svg>',
+  walk:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="1.6"/><path d="M11 8l2-1 2 3 3 1M11 8l-2 5 2 2 1 5M9 13l-2 5"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+  chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8 8 0 0 1-8 8 9 9 0 0 1-4-1L3 20l1.5-5a8 8 0 0 1 16-3.5z"/></svg>',
+  cup:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h11v5a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5z"/><path d="M16 9h2.5a2.5 2.5 0 0 1 0 5H16"/></svg>'
+};
+
+/* ===================== HELPERS ===================== */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+function pick(arr, not){ let v; do{ v = arr[Math.floor(Math.random()*arr.length)]; } while(v===not && arr.length>1); return v; }
+let toastT;
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("show"),2400); }
+function nowStamp(){ const d=new Date(); return d.toLocaleDateString(undefined,{month:'short',day:'numeric'})+' · '+d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}); }
+function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+/* ===================== THEME ===================== */
+$$(".swatch").forEach(b=>b.addEventListener("click",()=>{
+  document.documentElement.setAttribute("data-theme", b.dataset.set);
+  $$(".swatch").forEach(x=>x.setAttribute("aria-pressed", x===b ? "true":"false"));
+}));
+
+/* ===================== TABS ===================== */
+function goTab(name){
+  $$(".tab").forEach(t=>t.setAttribute("aria-selected", t.dataset.tab===name ? "true":"false"));
+  $$(".panel").forEach(p=>p.classList.toggle("active", p.id===name));
+  const active = $$(".tab").find ? null : null;
+  const btn = $$(".tab").filter(t=>t.dataset.tab===name)[0];
+  if(btn) btn.scrollIntoView({inline:'center', block:'nearest', behavior:'smooth'});
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+$$(".tab").forEach(t=>t.addEventListener("click",()=>goTab(t.dataset.tab)));
+$("#helpNow").addEventListener("click",()=>{ goTab("support"); setTimeout(()=>$("#crisisCard").scrollIntoView({behavior:'smooth'}),250); });
+
+/* ===================== HOME ===================== */
+(function initHome(){
+  const h=new Date().getHours();
+  let g="Hello", eye="Welcome";
+  if(h<5){g="Still awake"; eye="The quiet hours";}
+  else if(h<12){g="Good morning"; eye="A new morning";}
+  else if(h<17){g="Good afternoon"; eye="Midday";}
+  else if(h<22){g="Good evening"; eye="Winding down";}
+  else {g="It's late"; eye="The quiet hours";}
+  $("#greeting").innerHTML = g+", <em>mama</em>.";
+  $("#timeEyebrow").textContent = eye;
+  $("#homeAffirm").textContent = pick(AFFIRMATIONS);
+
+  // moods
+  const row=$("#moodRow");
+  Object.keys(MOODS).forEach(m=>{
+    const b=document.createElement("button");
+    b.className="mood"; b.textContent=m; b.setAttribute("aria-pressed","false");
+    b.addEventListener("click",()=>{
+      $$(".mood").forEach(x=>x.setAttribute("aria-pressed", x===b?"true":"false"));
+      const data=MOODS[m]; const rep=$("#moodReply");
+      rep.innerHTML = `<p>${data.msg}</p><button class="btn small" id="moodGo">Take me there</button>`;
+      rep.classList.add("show");
+      $("#moodGo").addEventListener("click",()=>goTab(data.tab));
+    });
+    row.appendChild(b);
+  });
+
+  // wellness grid
+  const wg=$("#wellGrid");
+  WELLNESS.forEach(w=>{
+    const d=document.createElement("div"); d.className="well";
+    d.innerHTML=`<div class="ic">${ICONS[w.i]}</div><div><b>${w.t}</b><span>${w.d}</span></div>`;
+    wg.appendChild(d);
+  });
+})();
+
+/* ===================== BREATHE ===================== */
+const PATTERNS = {
+  calm:   {label:"Calm", sub:"in 4 · out 6", steps:[["Breathe in",4,"inhale"],["Breathe out",6,"exhale"]]},
+  box:    {label:"Box",  sub:"4 · 4 · 4 · 4", steps:[["Breathe in",4,"inhale"],["Hold",4,"hold"],["Breathe out",4,"exhale"],["Hold",4,"hold-low"]]},
+  relax:  {label:"4·7·8", sub:"deep relax", steps:[["Breathe in",4,"inhale"],["Hold",7,"hold"],["Breathe out",8,"exhale"]]}
+};
+let curPat="calm", breathing=false, bTimer=null, stepIdx=0, secLeft=0, cycles=0;
+const orb=$("#orb"), phaseL=$("#phaseLabel"), countL=$("#countLabel"), cycleL=$("#cycleLabel"), bBtn=$("#breatheBtn");
+
+(function initPatterns(){
+  const pr=$("#patternRow");
+  Object.entries(PATTERNS).forEach(([k,p])=>{
+    const b=document.createElement("button");
+    b.className="pat"; b.setAttribute("aria-pressed", k===curPat?"true":"false");
+    b.innerHTML=`${p.label}<small>${p.sub}</small>`;
+    b.addEventListener("click",()=>{
+      curPat=k; $$(".pat").forEach(x=>x.setAttribute("aria-pressed", x===b?"true":"false"));
+      if(breathing) stopBreath();
+    });
+    pr.appendChild(b);
+  });
+})();
+
+function applyOrb(kind, dur){
+  if(kind==="inhale"){
+    orb.style.transitionDuration = dur+"s";
+    orb.classList.remove("exhale"); orb.classList.add("inhale");   // grow
+  } else if(kind==="exhale"){
+    orb.style.transitionDuration = dur+"s";
+    orb.classList.remove("inhale"); orb.classList.add("exhale");   // shrink
+  } else {
+    // hold — freeze at whatever size it currently is, no size change
+    orb.style.transitionDuration = "0s";
+  }
+}
+function runStep(){
+  const steps=PATTERNS[curPat].steps;
+  const [label,dur,kind]=steps[stepIdx];
+  phaseL.textContent=label;
+  applyOrb(kind,dur);
+  secLeft=dur; countL.textContent=secLeft;
+  bTimer=setInterval(()=>{
+    secLeft--;
+    if(secLeft<=0){
+      clearInterval(bTimer);
+      stepIdx++;
+      if(stepIdx>=steps.length){ stepIdx=0; cycles++; cycleL.textContent=cycles+(cycles===1?" round":" rounds")+" of calm"; }
+      if(breathing) runStep();
+    } else { countL.textContent=secLeft; }
+  },1000);
+}
+function startBreath(){
+  breathing=true; stepIdx=0; cycles=0; cycleL.textContent="";
+  bBtn.textContent="Pause"; runStep();
+}
+function stopBreath(){
+  breathing=false; clearInterval(bTimer);
+  bBtn.textContent="Begin"; phaseL.textContent="Whenever you're ready";
+  countL.textContent=""; orb.classList.remove("inhale"); orb.classList.add("exhale"); orb.style.transitionDuration="2s";
+}
+bBtn.addEventListener("click",()=> breathing?stopBreath():startBreath());
+
+/* ===================== CALM / AUDIO ===================== */
+const SCAPES = [
+  {id:"hush", em:"🌙", name:"Hush", sub:"soft warm pad"},
+  {id:"rain", em:"🌧️", name:"Rainfall", sub:"steady & gentle"},
+  {id:"ocean",em:"🌊", name:"Ocean", sub:"slow waves"},
+  {id:"heart",em:"🤍", name:"Heartbeat", sub:"womb-soft pulse"},
+  {id:"lull", em:"🎶", name:"Lullaby", sub:"music-box notes"},
+  {id:"hum",  em:"✨", name:"Warm hum", sub:"low & grounding"}
+];
+let audioCtx=null, master=null, current=null, currentNodes=[], lullTimer=null, heartTimer=null;
+function ensureCtx(){
+  if(!audioCtx){
+    audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+    master = audioCtx.createGain();
+    master.gain.value = ($("#vol").value/100)*0.5;
+    master.connect(audioCtx.destination);
+  }
+  if(audioCtx.state==="suspended") audioCtx.resume();
+}
+function stopAudio(){
+  currentNodes.forEach(n=>{ try{ if(n.stop) n.stop(); }catch(e){} try{ n.disconnect(); }catch(e){} });
+  currentNodes=[]; clearInterval(lullTimer); clearTimeout(heartTimer);
+  current=null;
+  $$(".scape").forEach(s=>s.setAttribute("aria-pressed","false"));
+  $("#nowPlaying").textContent="Nothing playing yet.";
+}
+function noiseBuffer(){
+  const len=audioCtx.sampleRate*2; const buf=audioCtx.createBuffer(1,len,audioCtx.sampleRate);
+  const d=buf.getChannelData(0); let last=0;
+  for(let i=0;i<len;i++){ const w=Math.random()*2-1; last=(last+0.02*w)/1.02; d[i]=last*3.5; }
+  return buf;
+}
+function play(id){
+  ensureCtx();
+  if(current===id){ stopAudio(); return; }
+  stopAudio(); current=id;
+  $$(".scape").forEach(s=>s.setAttribute("aria-pressed", s.dataset.id===id?"true":"false"));
+  const sc=SCAPES.find(s=>s.id===id); $("#nowPlaying").textContent="Now playing · "+sc.name;
+
+  if(id==="hush"||id==="hum"){
+    const freqs = id==="hush" ? [220,277.2,329.6] : [110,164.8,98];
+    freqs.forEach((f,idx)=>{
+      const o=audioCtx.createOscillator(); o.type= id==="hush"?"sine":"triangle"; o.frequency.value=f;
+      const g=audioCtx.createGain(); g.gain.value=0.0; 
+      const lp=audioCtx.createBiquadFilter(); lp.type="lowpass"; lp.frequency.value= id==="hush"?900:500;
+      o.connect(lp); lp.connect(g); g.connect(master);
+      const lfo=audioCtx.createOscillator(); lfo.frequency.value=0.06+idx*0.02;
+      const lg=audioCtx.createGain(); lg.gain.value=0.05; lfo.connect(lg); lg.connect(g.gain);
+      g.gain.setValueAtTime(0.0001,audioCtx.currentTime); g.gain.linearRampToValueAtTime(0.12,audioCtx.currentTime+3);
+      o.start(); lfo.start(); currentNodes.push(o,lfo);
+    });
+  }
+  else if(id==="rain"||id==="ocean"){
+    const src=audioCtx.createBufferSource(); src.buffer=noiseBuffer(); src.loop=true;
+    const bp=audioCtx.createBiquadFilter();
+    if(id==="rain"){ bp.type="highpass"; bp.frequency.value=600; }
+    else { bp.type="lowpass"; bp.frequency.value=420; }
+    const g=audioCtx.createGain(); g.gain.value=0.0;
+    src.connect(bp); bp.connect(g); g.connect(master);
+    g.gain.setValueAtTime(0.0001,audioCtx.currentTime); g.gain.linearRampToValueAtTime(id==="rain"?0.25:0.32,audioCtx.currentTime+2.5);
+    if(id==="ocean"){
+      const lfo=audioCtx.createOscillator(); lfo.frequency.value=0.12;
+      const lg=audioCtx.createGain(); lg.gain.value=0.18; lfo.connect(lg); lg.connect(g.gain); lfo.start(); currentNodes.push(lfo);
+      const flfo=audioCtx.createOscillator(); flfo.frequency.value=0.1; const flg=audioCtx.createGain(); flg.gain.value=180;
+      flfo.connect(flg); flg.connect(bp.frequency); flfo.start(); currentNodes.push(flfo);
+    }
+    src.start(); currentNodes.push(src);
+  }
+  else if(id==="heart"){
+    const bpm=66, interval=60/bpm;
+    function thump(t){
+      const o=audioCtx.createOscillator(); o.type="sine"; o.frequency.setValueAtTime(70,t); o.frequency.exponentialRampToValueAtTime(40,t+0.13);
+      const g=audioCtx.createGain(); g.gain.setValueAtTime(0.0001,t); g.gain.linearRampToValueAtTime(0.5,t+0.02); g.gain.exponentialRampToValueAtTime(0.0001,t+0.18);
+      o.connect(g); g.connect(master); o.start(t); o.stop(t+0.2);
+    }
+    function loop(){
+      const t=audioCtx.currentTime;
+      thump(t); thump(t+0.32); // lub-dub
+      heartTimer=setTimeout(loop, interval*1000);
+    }
+    loop();
+  }
+  else if(id==="lull"){
+    const scale=[523.25,587.33,659.25,783.99,880,659.25,587.33]; let i=0;
+    function note(){
+      const t=audioCtx.currentTime;
+      const f=scale[i%scale.length]; i++;
+      const o=audioCtx.createOscillator(); o.type="sine"; o.frequency.value=f;
+      const g=audioCtx.createGain(); g.gain.setValueAtTime(0.0001,t); g.gain.linearRampToValueAtTime(0.16,t+0.05); g.gain.exponentialRampToValueAtTime(0.0001,t+1.6);
+      const o2=audioCtx.createOscillator(); o2.type="sine"; o2.frequency.value=f/2; const g2=audioCtx.createGain();
+      g2.gain.setValueAtTime(0.0001,t); g2.gain.linearRampToValueAtTime(0.05,t+0.05); g2.gain.exponentialRampToValueAtTime(0.0001,t+1.6);
+      o.connect(g); g.connect(master); o2.connect(g2); g2.connect(master);
+      o.start(t); o.stop(t+1.7); o2.start(t); o2.stop(t+1.7);
+    }
+    note(); lullTimer=setInterval(note,1700);
+  }
+}
+(function initScapes(){
+  const grid=$("#scapeGrid");
+  SCAPES.forEach(s=>{
+    const b=document.createElement("button");
+    b.className="scape"; b.dataset.id=s.id; b.setAttribute("aria-pressed","false");
+    b.innerHTML=`<span class="em">${s.em}</span><b>${s.name}</b><span>${s.sub}</span>`;
+    b.addEventListener("click",()=>play(s.id));
+    grid.appendChild(b);
+  });
+  $("#vol").addEventListener("input",e=>{ if(master) master.gain.value=(e.target.value/100)*0.5; });
+})();
+// pause sound when leaving Calm tab is optional; keep playing for background calm.
+
+/* ===================== JOURNAL ===================== */
+let journal=[];
+function renderJournal(){
+  const list=$("#journalList");
+  if(!journal.length){ list.innerHTML='<p class="empty">Your pages are blank for now — and that\'s perfectly okay.</p>'; return; }
+  list.innerHTML="";
+  journal.slice().reverse().forEach((e)=>{
+    const div=document.createElement("div"); div.className="entry";
+    div.innerHTML=`<div class="meta"><span>${e.time}</span><button class="del" data-id="${e.id}">remove</button></div><p>${esc(e.text)}</p>`;
+    list.appendChild(div);
+  });
+  list.querySelectorAll(".del").forEach(b=>b.addEventListener("click",()=>{
+    journal=journal.filter(x=>x.id!=b.dataset.id); renderJournal(); toast("Entry removed");
+  }));
+}
+function setPrompt(){ $("#journalPrompt").textContent = pick(PROMPTS); }
+$("#newPrompt").addEventListener("click",setPrompt);
+$("#saveJournal").addEventListener("click",()=>{
+  const t=$("#journalText").value.trim();
+  if(!t){ toast("Write a little something first"); return; }
+  journal.push({id:Date.now(), time:nowStamp(), text:t, prompt:$("#journalPrompt").textContent});
+  $("#journalText").value=""; renderJournal(); toast("Saved to your pages ♥");
+});
+$("#journalPdf").addEventListener("click",()=>{
+  if(!journal.length){ toast("Write an entry first ♥"); return; }
+  let html=`<div class="p-cover">
+      <div class="p-orb"></div>
+      <p class="p-eyebrow">Your private pages</p>
+      <h1 class="p-title">My Journal</h1>
+      <p class="p-sub">Reflections from the early days of motherhood.</p>
+      <p class="p-date">${new Date().toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'})}</p>
+      <div class="p-divider"></div>
+    </div>`;
+  journal.forEach(e=>{
+    html+=`<div class="p-letter">
+        <div class="p-bar"></div>
+        <div class="p-when">${e.time}</div>
+        ${e.prompt?`<div class="p-meta">${esc(e.prompt)}</div>`:''}
+        <div class="p-body">${esc(e.text)}</div>
+      </div>`;
+  });
+  html+=`<p class="p-foot">You showed up for yourself on these pages. That matters. &hearts;</p>`;
+  $("#printRoot").innerHTML=html;
+  setTimeout(()=>window.print(), 60);
+});
+setPrompt(); renderJournal();
+
+/* ===================== CBT WORKSHEETS ===================== */
+let worksheets=[]; let curWs=WORKSHEETS[0].id;
+function fieldHTML(f){
+  const hint=f.hint?`<p class="fld-hint">${f.hint}</p>`:"";
+  const input = f.type==="text"
+    ? `<input type="text" id="ws_${f.id}" placeholder="${f.ph||""}" />`
+    : `<textarea id="ws_${f.id}" rows="${f.rows||2}" placeholder="${f.ph||""}"></textarea>`;
+  return `<div class="field"><label class="fld" for="ws_${f.id}">${f.label}</label>${hint}${input}</div>`;
+}
+function renderWsForm(){
+  const ws=WORKSHEETS.find(w=>w.id===curWs);
+  $("#wsIntro").textContent=ws.intro;
+  $("#wsFields").innerHTML=ws.fields.map(fieldHTML).join("");
+}
+function renderWsPicker(){
+  const p=$("#wsPicker"); p.innerHTML="";
+  WORKSHEETS.forEach(w=>{
+    const b=document.createElement("button");
+    b.className="pat"; b.setAttribute("aria-pressed", w.id===curWs?"true":"false");
+    b.innerHTML=`${w.name}<small>${w.sub}</small>`;
+    b.addEventListener("click",()=>{ curWs=w.id; renderWsPicker(); renderWsForm(); });
+    p.appendChild(b);
+  });
+}
+function renderCbt(){
+  const list=$("#cbtList");
+  if(!worksheets.length){ list.innerHTML='<p class="empty">No worksheets yet. The first one is always the hardest — be gentle.</p>'; return; }
+  list.innerHTML="";
+  worksheets.slice().reverse().forEach(r=>{
+    const ws=WORKSHEETS.find(w=>w.id===r.type)||{recap:()=>""};
+    const div=document.createElement("div"); div.className="entry cbt-recap";
+    div.innerHTML=`<div class="meta"><span>${esc(r.name)} · ${r.time}</span><button class="del" data-id="${r.id}">remove</button></div><p>${ws.recap(r.vals)}</p>`;
+    list.appendChild(div);
+  });
+  list.querySelectorAll(".del").forEach(b=>b.addEventListener("click",()=>{
+    worksheets=worksheets.filter(x=>x.id!=b.dataset.id); renderCbt(); toast("Worksheet removed");
+  }));
+}
+$("#saveCbt").addEventListener("click",()=>{
+  const ws=WORKSHEETS.find(w=>w.id===curWs);
+  const vals={}; let any=false;
+  ws.fields.forEach(f=>{ const v=$("#ws_"+f.id).value.trim(); vals[f.id]=v; if(v) any=true; });
+  if(!any){ toast("Fill in a little first"); return; }
+  worksheets.push({id:Date.now(), time:nowStamp(), type:ws.id, name:ws.name, vals});
+  renderCbt(); toast("Worksheet saved ♥");
+  ws.fields.forEach(f=>$("#ws_"+f.id).value="");
+});
+$("#clearCbt").addEventListener("click",()=>{
+  const ws=WORKSHEETS.find(w=>w.id===curWs);
+  ws.fields.forEach(f=>$("#ws_"+f.id).value=""); toast("Cleared");
+});
+$("#downloadCbt").addEventListener("click",()=>{
+  if(!worksheets.length){ toast("Nothing to download yet"); return; }
+  let out="MY CBT WORKSHEETS — Tender Days\n==============================\n\n";
+  worksheets.forEach(r=>{
+    const ws=WORKSHEETS.find(w=>w.id===r.type);
+    out+=r.name.toUpperCase()+" · "+r.time+"\n";
+    if(ws){ ws.fields.forEach(f=>{ out+= f.label+": "+(r.vals[f.id]||"—")+"\n"; }); }
+    out+="\n----------------------------------------\n\n";
+  });
+  download("my-cbt-worksheets.txt", out);
+});
+renderWsPicker(); renderWsForm(); renderCbt();
+
+/* ===================== NOTES TO BABY: LETTERS ===================== */
+let notes=[];
+function renderNotes(){
+  const list=$("#noteList");
+  if(!notes.length){ list.innerHTML='<p class="empty">No letters yet — your first one is waiting whenever you are.</p>'; return; }
+  list.innerHTML="";
+  notes.slice().reverse().forEach(n=>{
+    const div=document.createElement("div"); div.className="entry";
+    div.innerHTML=`<div class="meta"><span>${n.title?esc(n.title)+' · ':''}${n.time}</span><button class="del" data-id="${n.id}">remove</button></div><p>${esc(n.text)}</p>`;
+    list.appendChild(div);
+  });
+  list.querySelectorAll(".del").forEach(b=>b.addEventListener("click",()=>{
+    notes=notes.filter(x=>x.id!=b.dataset.id); renderNotes(); toast("Letter removed");
+  }));
+}
+function setNotePrompt(){ $("#notePrompt").textContent=pick(NOTE_PROMPTS); }
+$("#newNotePrompt").addEventListener("click",setNotePrompt);
+$("#saveNote").addEventListener("click",()=>{
+  const t=$("#noteText").value.trim();
+  if(!t){ toast("Write a little something first"); return; }
+  notes.push({id:Date.now(), time:nowStamp(), title:$("#noteTitle").value.trim(), text:t});
+  $("#noteText").value=""; $("#noteTitle").value=""; renderNotes(); toast("Saved with love ♥");
+});
+setNotePrompt(); renderNotes();
+
+/* ===================== NOTES TO BABY: MOMENTS ===================== */
+let moments=[];
+function renderMoments(){
+  const list=$("#momentList");
+  if(!moments.length){ list.innerHTML='<p class="empty">No moments banked yet — the first small one counts.</p>'; return; }
+  list.innerHTML="";
+  moments.slice().reverse().forEach(m=>{
+    const div=document.createElement("div"); div.className="entry";
+    div.innerHTML=`<div class="meta"><span>${esc(m.when||'A moment')} · ${m.time}</span><button class="del" data-id="${m.id}">remove</button></div>
+      <p><b>${esc(m.what)}</b></p>${m.why?`<p style="margin-top:6px;color:var(--ink-soft);">Why it mattered: ${esc(m.why)}</p>`:''}`;
+    list.appendChild(div);
+  });
+  list.querySelectorAll(".del").forEach(b=>b.addEventListener("click",()=>{
+    moments=moments.filter(x=>x.id!=b.dataset.id); renderMoments(); toast("Moment removed");
+  }));
+}
+function clearMomentFields(){ ["m_when","m_what","m_why"].forEach(id=>$("#"+id).value=""); }
+$("#saveMoment").addEventListener("click",()=>{
+  const what=$("#m_what").value.trim();
+  if(!what){ toast("Add what happened first"); return; }
+  moments.push({id:Date.now(), time:nowStamp(), when:$("#m_when").value.trim(), what, why:$("#m_why").value.trim()});
+  clearMomentFields(); renderMoments(); toast("Banked with love ♥");
+});
+$("#clearMoment").addEventListener("click",()=>{ clearMomentFields(); toast("Cleared"); });
+renderMoments();
+
+/* ===================== KEEPSAKE PDF (letters + moments) ===================== */
+function keepCover(sub){
+  const name=$("#keepName").value.trim();
+  const title = name ? "For "+esc(name) : "For my little one";
+  return `<div class="p-cover">
+      <div class="p-orb"></div>
+      <p class="p-eyebrow">A keepsake of love</p>
+      <h1 class="p-title">${title}</h1>
+      <p class="p-sub">${sub}</p>
+      <p class="p-date">${new Date().toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'})}</p>
+      <div class="p-divider"></div>
+    </div>`;
+}
+function buildLettersPdf(){
+  let html=keepCover("Letters written to you, with all my love.");
+  notes.forEach(n=>{
+    html+=`<div class="p-letter">
+        <div class="p-bar"></div>
+        <div class="p-when">${n.title?esc(n.title):'A letter to you'}</div>
+        <div class="p-meta">${n.time}</div>
+        <div class="p-body">${esc(n.text)}</div>
+      </div>`;
+  });
+  html+=`<p class="p-foot">Every word here was true. You are so loved. &hearts;</p>`;
+  $("#printRoot").innerHTML=html;
+}
+function buildMomentsPdf(){
+  let html=keepCover("Moments worth remembering, gathered with love.");
+  moments.forEach((m,i)=>{
+    html+=`<div class="p-card">
+        <div class="p-bar"></div>
+        <div class="p-num">${i+1}</div>
+        <div class="p-when">${esc(m.when||'A moment')}</div>
+        <div class="p-block"><span class="p-label">What happened</span><p>${esc(m.what)}</p></div>
+        ${m.why?`<div class="p-block"><span class="p-label">Why it mattered</span><p>${esc(m.why)}</p></div>`:''}
+      </div>`;
+  });
+  html+=`<p class="p-foot">However the days felt, the light was always here. &hearts;</p>`;
+  $("#printRoot").innerHTML=html;
+}
+$("#lettersPdf").addEventListener("click",()=>{
+  if(!notes.length){ toast("Write a letter first ♥"); return; }
+  buildLettersPdf();
+  setTimeout(()=>window.print(), 60);
+});
+$("#momentsPdf").addEventListener("click",()=>{
+  if(!moments.length){ toast("Bank a moment first ♥"); return; }
+  buildMomentsPdf();
+  setTimeout(()=>window.print(), 60);
+});
+
+/* ===================== QUOTES ===================== */
+$("#newQuote").addEventListener("click",()=>{
+  $("#bigQuote").style.opacity=0;
+  setTimeout(()=>{ $("#bigQuote").textContent=pick(AFFIRMATIONS, $("#bigQuote").textContent); $("#bigQuote").style.opacity=1; },200);
+});
+$("#bigQuote").style.transition="opacity .25s ease";
+$("#bigQuote").textContent=pick(AFFIRMATIONS);
+(function initReminders(){
+  const g=$("#reminderGrid");
+  REMINDERS.forEach(r=>{
+    const d=document.createElement("div"); d.className="reminder";
+    d.innerHTML=`<span class="dot"></span><span>${r}</span>`; g.appendChild(d);
+  });
+})();
+
+/* ===================== MY CIRCLE (support network) ===================== */
+let circle=[];
+const ROLE_COLORS={ Partner:"#e58fa6", Family:"#f0a87f", Friend:"#8fb8e0", Neighbor:"#b9a0dd", Professional:"#8fc9a8", Other:"#bdb4ac" };
+const ROLE_LABELS={ Partner:"Partner", Family:"Family", Friend:"Friend", Neighbor:"Neighbor", Professional:"Doctor / Midwife", Other:"Other" };
+function roleColor(r){ return ROLE_COLORS[r]||ROLE_COLORS.Other; }
+
+function renderCircleMap(){
+  const wrap=$("#cmapWrap"), legend=$("#cmapLegend");
+  const center=($("#centerName").value||"").trim()||"Me";
+  if(!circle.length){
+    wrap.innerHTML='<p class="empty" style="text-align:center;padding:30px 10px;">Add someone above to begin your circle. Even one person counts.</p>';
+    legend.innerHTML=""; return;
+  }
+  const W=620,H=620,cx=310,cy=310,cR=56,nR=44;
+  const R = circle.length===1?150 : circle.length<=3?180 : 210;
+  let svg=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="cmap-svg" role="img" aria-label="Your support network">`;
+  svg+=`<defs><radialGradient id="centerGrad" cx="38%" cy="32%" r="78%">
+      <stop offset="0%" stop-color="var(--orb-a)"/><stop offset="62%" stop-color="var(--orb-b)"/><stop offset="100%" stop-color="var(--orb-c)"/>
+    </radialGradient></defs>`;
+  const pos=circle.map((p,i)=>{
+    const ang=(-90 + i*360/circle.length)*Math.PI/180;
+    return { x:cx+R*Math.cos(ang), y:cy+R*Math.sin(ang), p };
+  });
+  pos.forEach(o=>{ svg+=`<line x1="${cx}" y1="${cy}" x2="${o.x.toFixed(1)}" y2="${o.y.toFixed(1)}" stroke="var(--ink-faint)" stroke-width="2" opacity="0.35"/>`; });
+  svg+=`<circle cx="${cx}" cy="${cy}" r="${cR}" fill="url(#centerGrad)"/>`;
+  svg+=`<text x="${cx}" y="${cy+6}" text-anchor="middle" class="cmap-center-t">${esc(center.length>10?center.slice(0,9)+'…':center)}</text>`;
+  pos.forEach(o=>{
+    const init=(o.p.name||"♥").trim().charAt(0).toUpperCase();
+    const col=roleColor(o.p.role);
+    const nm=o.p.name.length>12 ? o.p.name.slice(0,11)+"…" : o.p.name;
+    const x=o.x.toFixed(1), y=o.y.toFixed(1);
+    const digits=(o.p.phone||"").replace(/[^0-9+]/g,"");
+    const open=digits?`<a xlink:href="tel:${digits}" href="tel:${digits}">`:`<g>`;
+    const close=digits?`</a>`:`</g>`;
+    svg+=`${open}
+      <circle cx="${x}" cy="${y}" r="${nR}" fill="${col}" stroke="#fff" stroke-width="3"/>
+      <text x="${x}" y="${(o.y+8).toFixed(1)}" text-anchor="middle" class="cmap-init">${init}</text>
+      <text x="${x}" y="${(o.y+nR+19).toFixed(1)}" text-anchor="middle" class="cmap-name">${esc(nm)}</text>
+      ${digits?`<text x="${x}" y="${(o.y+nR+34).toFixed(1)}" text-anchor="middle" class="cmap-call">tap to call</text>`:''}
+      ${close}`;
+  });
+  svg+=`</svg>`;
+  wrap.innerHTML=svg;
+  const roles=[...new Set(circle.map(p=>p.role))];
+  legend.innerHTML=roles.map(r=>`<span class="leg"><span class="leg-dot" style="background:${roleColor(r)}"></span>${esc(ROLE_LABELS[r]||r)}</span>`).join("");
+}
+function renderCircle(){
+  const list=$("#circleList");
+  list.innerHTML="";
+  circle.forEach(c=>{
+    const div=document.createElement("div"); div.className="circle-person";
+    const initial=(c.name||"♥").trim().charAt(0).toUpperCase();
+    const call = c.phone ? `<a class="callbtn" href="tel:${c.phone.replace(/[^0-9+]/g,'')}">Call</a>` : '';
+    div.innerHTML=`<div class="av" style="background:${roleColor(c.role)}">${initial}</div>`+
+      `<div class="info"><b>${esc(c.name)}<span class="role-chip" style="background:${roleColor(c.role)}">${esc(ROLE_LABELS[c.role]||c.role)}</span></b>${c.phone?`<span>${esc(c.phone)}</span>`:''}</div>`+
+      `${call}<button class="del" data-id="${c.id}" style="background:none;border:none;color:var(--ink-faint);cursor:pointer;font-weight:700;font-size:.78rem;">remove</button>`;
+    list.appendChild(div);
+  });
+  list.querySelectorAll(".del").forEach(b=>b.addEventListener("click",()=>{
+    circle=circle.filter(x=>x.id!=b.dataset.id); renderCircle(); renderCircleMap();
+  }));
+  renderCircleMap();
+}
+$("#addCircle").addEventListener("click",()=>{
+  const n=$("#circleName").value.trim(), p=$("#circlePhone").value.trim(), r=$("#circleRole").value;
+  if(!n){ toast("Add a name first"); return; }
+  circle.push({id:Date.now(), name:n, phone:p, role:r});
+  $("#circleName").value=""; $("#circlePhone").value="";
+  renderCircle(); toast("Added to your circle ♥");
+});
+$("#centerName").addEventListener("input", renderCircleMap);
+renderCircle();
+
+/* ===================== PRIVACY & CLOUD SYNC (opt-in model) ===================== */
+let syncEnabled=false;
+const privModal=$("#privacyModal");
+function openPriv(){ privModal.hidden=false; }
+function closePriv(){ privModal.hidden=true; }
+$("#privacyBtn").addEventListener("click", openPriv);
+$("#privClose").addEventListener("click", closePriv);
+privModal.addEventListener("click", e=>{ if(e.target===privModal) closePriv(); });
+document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !privModal.hidden) closePriv(); });
+
+// gate the enable button on all consents + a valid-looking email
+function checkConsent(){
+  const all = $$(".cbox").every(c=>c.checked);
+  const email = $("#syncEmail").value.trim();
+  const ok = all && /\S+@\S+\.\S+/.test(email);
+  $("#enableSync").disabled = !ok;
+}
+$$(".cbox").forEach(c=>c.addEventListener("change", checkConsent));
+$("#syncEmail").addEventListener("input", checkConsent);
+
+// NOTE FOR DEVELOPERS: this is the consent + opt-in model only.
+// Wire your backend (e.g. Supabase) inside these two stubs to make sync live.
+function syncToCloud(){ /* TODO: upload {journal, notes, moments, worksheets, circle} for the signed-in account */ }
+function loadFromCloud(){ /* TODO: fetch this account's saved entries and re-render */ }
+
+$("#enableSync").addEventListener("click",()=>{
+  const email=$("#syncEmail").value.trim();
+  syncEnabled=true;
+  $("#syncEmailShow").textContent=email;
+  $("#syncConsent").hidden=true;
+  $("#syncOn").hidden=false;
+  $("#syncBadge").textContent="On";
+  $("#syncBadge").className="badge-on";
+  syncToCloud();
+  toast("Cloud sync turned on ♥");
+});
+$("#disableSync").addEventListener("click",()=>{
+  syncEnabled=false;
+  $$(".cbox").forEach(c=>c.checked=false);
+  checkConsent();
+  $("#syncConsent").hidden=false;
+  $("#syncOn").hidden=true;
+  $("#syncBadge").textContent="Off";
+  $("#syncBadge").className="badge-off";
+  toast("Sync off — your data stays only on this device");
+});
+
+$("#exportData").addEventListener("click",()=>{
+  const data={
+    exportedAt:new Date().toISOString(),
+    journal, letters:notes, moments, worksheets, circle
+  };
+  const empty = !journal.length && !notes.length && !moments.length && !worksheets.length && !circle.length;
+  if(empty){ toast("Nothing to export yet"); return; }
+  download("tender-days-my-data.json", JSON.stringify(data,null,2));
+});
+
+$("#deleteData").addEventListener("click",()=>{
+  const empty = !journal.length && !notes.length && !moments.length && !worksheets.length && !circle.length;
+  if(empty){ toast("There's nothing stored to delete"); return; }
+  if(!confirm("Permanently delete all your journal entries, letters, moments, worksheets, and circle from this device? This can't be undone.")) return;
+  journal.length=0; notes.length=0; moments.length=0; worksheets.length=0; circle.length=0;
+  renderJournal(); renderNotes(); renderMoments(); renderCbt(); renderCircle();
+  toast("All your data has been deleted");
+});
+
+/* ===================== MEDICAL BANNER ===================== */
+$("#medClose").addEventListener("click",()=>$("#medBanner").classList.add("hide"));
+
+/* ===================== DOWNLOAD ===================== */
+function download(name, text){
+  try{
+    const blob=new Blob([text],{type:"text/plain"});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a"); a.href=url; a.download=name; document.body.appendChild(a); a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); },100);
+    toast("Saved to your device ♥");
+  }catch(e){
+    // fallback: open in new window for copy
+    const w=window.open("","_blank");
+    if(w){ w.document.write("<pre style='white-space:pre-wrap;font-family:sans-serif;padding:20px'>"+esc(text)+"</pre>"); }
+    else toast("Couldn't download — try copying from the page");
+  }
+}
+</script>
+  <script src="/auth-gate.js"></script>
+</body>
+</html>
