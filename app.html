@@ -63,6 +63,14 @@
   --ring:rgba(233,176,169,.32);
   --orb-a:#fadfd8; --orb-b:#f5c6bf; --orb-c:#fbe9dd;
 }
+[data-theme="night"]{ /* Night — for 3am feeds, dark & low-glow */
+  --bg1:#181320; --bg2:#120f19; --bg3:#1e1826;
+  --surface:#221b2c; --surface-2:#2a2235; --line:#342a40;
+  --ink:#e9e0ec; --ink-soft:#b1a5bc; --ink-faint:#796e85;
+  --accent:#c99aa8; --accent-deep:#b07f8f; --accent-2:#42354a;
+  --ring:rgba(201,154,168,.26);
+  --orb-a:#5b4553; --orb-b:#7d5c6b; --orb-c:#3d323f;
+}
 
 
 *{box-sizing:border-box;}
@@ -117,6 +125,7 @@ header.top{
 .sw-sage{background:linear-gradient(135deg,#deefe1,#c4dccb);}
 .sw-sky{background:linear-gradient(135deg,#ddeaf7,#c2d7ee);}
 .sw-clay{background:linear-gradient(135deg,#fadfd8,#f4ccc4);}
+.sw-night{background:linear-gradient(135deg,#241d2f 52%,#b78a98);}
 
 .help-now{
   font-family:var(--font-body); font-weight:700; font-size:.78rem;
@@ -440,6 +449,7 @@ footer.foot .heart{color:var(--accent-deep);}
   background:var(--ink); color:#fff; padding:12px 22px; border-radius:var(--pill); font-size:.88rem; font-weight:600;
   box-shadow:var(--shadow-lift); opacity:0; pointer-events:none; transition:all .35s ease; z-index:100;}
 .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+[data-theme="night"] .toast{ background:var(--surface-2); color:var(--ink); border:1px solid var(--line); }
 
 @media (prefers-reduced-motion: reduce){
   .hero .ambient{animation:none;}
@@ -558,6 +568,7 @@ footer.foot .heart{color:var(--accent-deep);}
       <button class="swatch sw-sage" data-set="sage" aria-pressed="false" title="Sage calm" aria-label="Sage calm"></button>
       <button class="swatch sw-sky" data-set="sky" aria-pressed="false" title="Sky lullaby" aria-label="Sky lullaby"></button>
       <button class="swatch sw-clay" data-set="clay" aria-pressed="false" title="Soft coral" aria-label="Soft coral"></button>
+      <button class="swatch sw-night" data-set="night" aria-pressed="false" title="Night — gentle in the dark, for 3am feeds" aria-label="Night mode — dark and gentle for late-night feeds"></button>
     </div>
     <button class="priv-btn" id="privacyBtn" title="Privacy & data">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="m9 12 2 2 4-4"/></svg>
@@ -1056,7 +1067,18 @@ function esc(s){ const d=document.createElement('div'); d.textContent=s; return 
 $$(".swatch").forEach(b=>b.addEventListener("click",()=>{
   document.documentElement.setAttribute("data-theme", b.dataset.set);
   $$(".swatch").forEach(x=>x.setAttribute("aria-pressed", x===b ? "true":"false"));
+  try{ localStorage.setItem("tenderDays.theme", b.dataset.set); }catch(e){}
 }));
+// restore a saved color mood (e.g. Night) on load
+(function(){
+  try{
+    var t=localStorage.getItem("tenderDays.theme");
+    if(t){
+      document.documentElement.setAttribute("data-theme", t);
+      $$(".swatch").forEach(x=>x.setAttribute("aria-pressed", x.dataset.set===t ? "true":"false"));
+    }
+  }catch(e){}
+})();
 
 /* ===================== TABS ===================== */
 function goTab(name){
